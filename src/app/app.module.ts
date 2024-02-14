@@ -7,21 +7,22 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { httpInterceptProviders } from './core/interceptors';
 import { SharedModule } from './shared/shared.module';
+import { NavbarComponent } from "./layout/navbar/navbar.component";
 
 @NgModule({
-  declarations: [
-    AppComponent
-  ],
-  imports: [
-    SharedModule,
-    BrowserModule,
-    HttpClientModule,
-    BrowserAnimationsModule,
-    AppRoutingModule
-  ],
-  providers: [
-    httpInterceptProviders
-  ],
-  bootstrap: [AppComponent]
+    declarations: [
+        AppComponent
+    ],
+    providers: [
+        httpInterceptProviders
+    ],
+    bootstrap: [AppComponent],
+    imports: [
+        SharedModule,
+        BrowserModule,
+        HttpClientModule,
+        BrowserAnimationsModule,
+        AppRoutingModule
+    ]
 })
 export class AppModule { }

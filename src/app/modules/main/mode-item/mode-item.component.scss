@@ -1,0 +1,16 @@
+.mode-item {
+    width: 100%;
+    text-align: center;
+    padding: 1em;
+    -webkit-box-shadow: -2px 4px 7px -1px #000000; 
+    box-shadow: 0px 4px 7px -1px #000000;
+    border-radius: 5px 5px 3px 3px;
+    transition-duration: 0.5s;
+    cursor: pointer;
+}
+
+.mode-item:hover {
+    -webkit-box-shadow: 7px 10px 5px -2px #E193FF; 
+    box-shadow: 0px 9px 4px -4px #E193FF, 0px 4px 11px -1px #000000;
+    transform: translateY(-10px);
+}

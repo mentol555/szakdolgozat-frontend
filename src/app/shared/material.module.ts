@@ -81,6 +81,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
         MatBadgeModule,
         MatListModule,
         MatGridListModule,
+        MatCardModule,
         MatInputModule,
         MatFormFieldModule,
         MatSelectModule,

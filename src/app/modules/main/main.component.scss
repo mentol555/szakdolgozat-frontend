@@ -1,0 +1,26 @@
+.main-wrapper {
+    flex-direction: column;
+    color: white;
+
+    .title {
+        font-size: large;
+        text-align: center;
+    }
+
+    .spacer {
+        height: 100px;
+        width: 100%;
+    }
+
+    .mode-wrapper {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, 250px);
+        justify-content: center;
+        gap: 5em;
+
+        app-mode-item {
+            display: flex;
+            justify-content: center;
+        }
+    }
+}

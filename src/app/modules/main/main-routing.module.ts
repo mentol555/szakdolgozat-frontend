@@ -3,7 +3,16 @@ import { RouterModule, Routes } from '@angular/router';
 import { MainComponent } from './main.component';
 
 const routes: Routes = [
-    { path: '', component: MainComponent}
+    { 
+        path: '', 
+        component: MainComponent, 
+    },
+    {
+        path: 'img-editor', loadChildren: () => import('../editors/img-editor/img-editor.module').then(m => m.ImgEditorModule)
+    },
+    {
+        path: 'doc-editor', loadChildren: () => import('../editors/doc-editor/doc-editor.module').then(m => m.DocEditorModule)
+    }
 ];
 
 @NgModule({
