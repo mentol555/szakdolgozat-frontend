@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ImgEditorComponent } from './img-editor.component';
 import { ImgEditorRoutingModule } from './img-editor-routing.module';
+import { SharedModule } from '../../../shared/shared.module';
 
 
 @NgModule({
@@ -10,6 +11,7 @@ import { ImgEditorRoutingModule } from './img-editor-routing.module';
   ],
   imports: [
     CommonModule,
+    SharedModule,
     ImgEditorRoutingModule,
   ]
 })

@@ -22,8 +22,11 @@
     "@angular/router": "^17.1.0",
     "bootstrap": "^5.3.2",
     "bootstrap-icons": "^1.11.3",
+    "jquery": "^3.7.1",
     "mini-canvas-editor": "^0.3.0",
+    "ngx-summernote": "^1.0.0",
     "rxjs": "~7.8.0",
+    "summernote": "^0.8.20",
     "tslib": "^2.3.0",
     "zone.js": "~0.14.3"
   },

@@ -1,1 +1,4 @@
-<p style="padding: 25px;color: white">doc-editor helye!</p>
+<div class="wrapper">
+    <div class="summernote" [ngxSummernote]="config" (summernoteModelChange)="changeContent($event)"></div>
+    <div class="summernote-view" [ngxSummernoteView]="getContent()"></div>
+</div>
