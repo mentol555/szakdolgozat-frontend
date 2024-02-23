@@ -4,7 +4,9 @@
     flex-wrap: wrap;
     margin: 5em 1em;
     gap: 1em;
-    
+    .summernote-view {
+        border-radius: 0.75em;
+    }
     .summernote {
         flex: 1;
     }

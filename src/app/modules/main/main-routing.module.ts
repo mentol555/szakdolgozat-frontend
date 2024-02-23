@@ -12,6 +12,9 @@ const routes: Routes = [
     },
     {
         path: 'doc-editor', loadChildren: () => import('../editors/doc-editor/doc-editor.module').then(m => m.DocEditorModule)
+    },
+    {
+        path: 'profile', loadChildren: () => import('../profile/profile.module').then(m => m.ProfileModule)
     }
 ];
 

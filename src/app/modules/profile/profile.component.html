@@ -1,0 +1,48 @@
+<script src="https://storage.googleapis.com/code.getmdl.io/1.1.0/material.min.js"></script>
+<link href="https://storage.googleapis.com/code.getmdl.io/1.1.0/material.indigo-pink.min.css" rel="stylesheet"/>
+<div class="wrapper">
+    <div class="mdl-tabs vertical-mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
+        <div class="mdl-grid mdl-grid--no-spacing">
+          <div class="mdl-cell mdl-cell--2-col">
+              <div class="mdl-tabs__tab-bar">
+                 <button mat-flat-button (click)="selectTab(1)" [class.is-active]="selectedTab === 1" class="mdl-tabs__tab">
+                     <span class="hollow-circle"></span>
+                      Tab 1
+                 </button>
+                 <button mat-flat-button (click)="selectTab(2)" [class.is-active]="selectedTab === 2" class="mdl-tabs__tab">
+                      <span class="hollow-circle"></span>
+                      Tab 2
+                  </button>
+                  <button mat-flat-button (click)="selectTab(3)" [class.is-active]="selectedTab === 3" class="mdl-tabs__tab">
+                      <span class="hollow-circle"></span>
+                      Tab 3
+                  </button>
+             </div>
+           </div>
+           <div class="mdl-cell mdl-cell--6-col">
+                <div *ngIf="selectedTab === 1" class="mdl-tabs__panel" id="tab1-panel">
+                    <div class="personal-info">
+                        <mat-form-field>
+                            <mat-label>Felhasználónév</mat-label>
+                            <input matInput>
+                        </mat-form-field>
+                        <mat-form-field>
+                            <mat-label>Email-cím</mat-label>
+                            <input matInput>
+                        </mat-form-field>
+                        <mat-form-field>
+                            <mat-label>Jelszó</mat-label>
+                            <input matInput>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div *ngIf="selectedTab === 1" class="mdl-tabs__panel" id="tab2-panel">
+                     Content 2
+                </div>
+                <div *ngIf="selectedTab === 1" class="mdl-tabs__panel" id="tab3-panel">
+                      Content 3
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
