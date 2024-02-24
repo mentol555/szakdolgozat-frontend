@@ -1,4 +1,28 @@
+.navbar {
+    z-index: 5;
+}
+.nav-item {
+    width: 200px;
+
+    button {
+        width: 100%;
+    }
+}
+.navbar-toggler {
+    color: rgba(0,0,0,.55);
+    border-color: none;
+}
+.navbar-toggler:focus {
+    text-decoration: none;
+    outline: 0;
+    box-shadow: none;
+}
 .profile {
     display: flex;
     align-items: center;
+}
+
+.nav-button {
+    background-color: unset !important;
+    justify-content: flex-start !important;
 }

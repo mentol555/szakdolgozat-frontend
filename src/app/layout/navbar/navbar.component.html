@@ -5,24 +5,24 @@
       </button>
       <a class="navbar-brand" href="/">Home</a>
       <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <ul class="navbar-nav me-auto mb-2 mt-2 mt-sm-0 mb-lg-0">
           <li class="nav-item">
-            <button mat-flat-button (click)="navigateTo('img-editor')" class="profile me-2">
+            <button mat-flat-button (click)="navigateTo('img-editor')" class="nav-button me-2">
                 <mat-icon>image</mat-icon>
                 <span>Image editor</span>
             </button>
           </li>
           <li class="nav-item">
-            <button mat-flat-button (click)="navigateTo('doc-editor')" class="profile me-2">
+            <button mat-flat-button (click)="navigateTo('doc-editor')" class="nav-button me-2">
                 <mat-icon>edit_document</mat-icon>
                 <span>Document editor</span>
             </button>
           </li>
         </ul>
-        <button mat-flat-button (click)="navigateTo('profile')" class="profile me-2">
-            <mat-icon>account_circle</mat-icon>
-            <span>Teszt Profil</span>
-        </button>
       </div>
+      <button mat-flat-button (click)="navigateTo('profile')" class="nav-button profile me-2">
+        <mat-icon>account_circle</mat-icon>
+        <span>Teszt Profil</span>
+      </button>
     </div>
   </nav>
