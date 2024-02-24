@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthService } from '../../core/services/auth.service';
+import { tap } from 'rxjs';
 
 @Component({
   selector: 'app-navbar',
@@ -7,8 +9,13 @@ import { Router } from '@angular/router';
   styleUrl: './navbar.component.scss'
 })
 export class NavbarComponent {
+
+    isLoggedIn$ = this.authService.getIsLoggedIn().pipe(tap(value => console.log(value)));
     
-    constructor(private router: Router) {
+    constructor(
+        private router: Router,
+        private authService: AuthService
+    ) {
     }
     
     navigateTo(url: string) {

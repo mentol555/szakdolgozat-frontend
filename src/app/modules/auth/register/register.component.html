@@ -1,18 +1,23 @@
 <mat-card class="wrapper w-25 mx-auto mt-5">
 
-    <mat-card-title class="mx-auto mt-3">Log in</mat-card-title>
+    <mat-card-title class="mx-auto mt-3">Sign up</mat-card-title>
 
     <mat-form-field class="w-75 mt-5 mx-auto">
         <mat-label>Email address</mat-label>
-        <input [formControl]="loginForm.controls.email" matInput />
+        <input matInput />
+    </mat-form-field>
+
+    <mat-form-field class="w-75 mx-auto">
+        <mat-label>Username</mat-label>
+        <input matInput />
     </mat-form-field>
 
     <mat-form-field class="w-75 mx-auto">
         <mat-label>Password</mat-label>
-        <input [formControl]="loginForm.controls.password" matInput />
+        <input matInput />
     </mat-form-field>
 
     <mat-card-actions class="d-flex justify-content-center mb-3">
-        <button mat-flat-button color="primary" (click)="login()">Log in</button>
+        <button mat-flat-button color="primary" (click)="register()">Register account</button>
     </mat-card-actions>
 </mat-card>

@@ -7,13 +7,21 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { httpInterceptProviders } from './core/interceptors';
 import { SharedModule } from './shared/shared.module';
-import { NavbarComponent } from "./layout/navbar/navbar.component";
+import { StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
+import { reducers } from './store/reducers';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { ApiService } from './core/services/api.service';
+import { AuthService } from './core/services/auth.service';
+import { CommonModule } from '@angular/common';
 
 @NgModule({
     declarations: [
         AppComponent
     ],
     providers: [
+        ApiService,
+        AuthService,
         httpInterceptProviders
     ],
     bootstrap: [AppComponent],
@@ -22,7 +30,17 @@ import { NavbarComponent } from "./layout/navbar/navbar.component";
         BrowserModule,
         HttpClientModule,
         BrowserAnimationsModule,
-        AppRoutingModule
+        AppRoutingModule,
+        StoreModule.forRoot(reducers, {
+            runtimeChecks: {
+              strictActionImmutability: true,
+              strictActionSerializability: true,
+              strictStateImmutability: true,
+              strictStateSerializability: true
+            }
+        }),
+        StoreDevtoolsModule.instrument({maxAge: 25, logOnly: false}),
+        EffectsModule.forRoot([])
     ]
 })
 export class AppModule { }

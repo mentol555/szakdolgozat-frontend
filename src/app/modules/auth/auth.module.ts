@@ -3,20 +3,34 @@ import { AuthComponent } from './auth.component';
 import { AuthRoutingModule } from './auth-routing.module';
 import { CommonModule } from '@angular/common';
 import { SharedModule } from '../../shared/shared.module';
-import { MaterialModule } from '../../shared/material.module';
-import { ReactiveFormsModule } from '@angular/forms';
-import { MatFormFieldModule } from '@angular/material/form-field';
 import { LoginComponent } from './login/login.component';
+import { RegisterComponent } from './register/register.component';
+import { reducers } from './store/reducers';
+import { AuthEffects } from './store/effects/auth.effects';
+import { EffectsModule } from '@ngrx/effects';
+import { StoreModule } from '@ngrx/store';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { AuthService } from '../../core/services/auth.service';
 
 @NgModule({
   declarations: [
     AuthComponent,
-    LoginComponent
+    LoginComponent,
+    RegisterComponent
   ],
   imports: [
     CommonModule,
     SharedModule,
-    AuthRoutingModule
+    FormsModule,
+    ReactiveFormsModule,
+    AuthRoutingModule,
+    StoreModule.forFeature(
+        'authState',
+        reducers
+    ),
+    EffectsModule.forFeature([
+        AuthEffects
+    ])
   ]
 })
 export class AuthModule { }

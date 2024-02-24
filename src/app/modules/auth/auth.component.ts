@@ -7,5 +7,5 @@ import { RouterOutlet } from '@angular/router';
   styleUrl: './auth.component.scss'
 })
 export class AuthComponent {
-  title = 'frontend';
+    
 }
