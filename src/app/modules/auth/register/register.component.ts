@@ -1,5 +1,12 @@
-import { HttpClient } from "@angular/common/http";
 import { Component, OnInit } from "@angular/core";
+import { FormControl, FormGroup, Validators } from "@angular/forms";
+import { AuthService } from "../../../core/services/auth.service";
+
+export interface RegisterForm {
+    email: FormControl<string>,
+    username: FormControl<string>,
+    password: FormControl<string>
+}
 
 @Component({
     selector: 'app-register',
@@ -8,14 +15,16 @@ import { Component, OnInit } from "@angular/core";
   })
   export class RegisterComponent implements OnInit {
 
-    constructor(private http: HttpClient) {}
+    constructor(private authService: AuthService) {}
+
+    registerForm = new FormGroup<RegisterForm>({
+        email: new FormControl<string>('', { validators: [Validators.required], nonNullable: true }),
+        username: new FormControl<string>('', { validators: [Validators.required], nonNullable: true }),
+        password: new FormControl<string>('', { validators: [Validators.required], nonNullable: true })
+    })
 
     register() {
-        const req = {
-            email: "teszt@asd.com",
-            password: "1234"
-        }
-        this.http.post('http://localhost:8080/api/auth/authenticate', req).subscribe();
+        this.authService.register(this.registerForm);
     }
 
     ngOnInit(): void {

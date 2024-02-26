@@ -1,4 +1,3 @@
-import { HttpClient } from "@angular/common/http";
 import { Component, OnInit } from "@angular/core";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { AuthService } from "../../../core/services/auth.service";
@@ -23,10 +22,6 @@ export interface LoginForm {
     constructor(private authService: AuthService) {}
 
     login() {
-        const req = {
-            email: "teszt@asd.com",
-            password: "1234"
-        }
         this.authService.login(this.loginForm);
     }
 

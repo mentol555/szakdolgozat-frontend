@@ -1,4 +1,4 @@
-<mat-card class="wrapper w-25 mx-auto mt-5">
+<mat-card class="wrapper mx-auto mt-5">
 
     <mat-card-title class="mx-auto mt-3">Log in</mat-card-title>
 
@@ -12,7 +12,11 @@
         <input [formControl]="loginForm.controls.password" matInput />
     </mat-form-field>
 
-    <mat-card-actions class="d-flex justify-content-center mb-3">
+    <mat-card-actions class="d-flex flex-column justify-content-center mb-3">
         <button mat-flat-button color="primary" (click)="login()">Log in</button>
+        <div class="d-flex w-100 justify-content-between ps-3 pe-3">
+            <a>Forgot password</a>
+            <a href="/auth/register">Create account</a>
+        </div>
     </mat-card-actions>
 </mat-card>

@@ -10,7 +10,7 @@ import { tap } from 'rxjs';
 })
 export class NavbarComponent {
 
-    isLoggedIn$ = this.authService.getIsLoggedIn().pipe(tap(value => console.log(value)));
+    isLoggedIn$ = this.authService.getIsLoggedIn();
     
     constructor(
         private router: Router,

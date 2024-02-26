@@ -1,20 +1,20 @@
-<mat-card class="wrapper w-25 mx-auto mt-5">
+<mat-card class="wrapper mx-auto mt-5">
 
     <mat-card-title class="mx-auto mt-3">Sign up</mat-card-title>
 
     <mat-form-field class="w-75 mt-5 mx-auto">
         <mat-label>Email address</mat-label>
-        <input matInput />
+        <input [formControl]="registerForm.controls.email" matInput />
     </mat-form-field>
 
     <mat-form-field class="w-75 mx-auto">
         <mat-label>Username</mat-label>
-        <input matInput />
+        <input [formControl]="registerForm.controls.username" matInput />
     </mat-form-field>
 
     <mat-form-field class="w-75 mx-auto">
         <mat-label>Password</mat-label>
-        <input matInput />
+        <input [formControl]="registerForm.controls.password" matInput />
     </mat-form-field>
 
     <mat-card-actions class="d-flex justify-content-center mb-3">

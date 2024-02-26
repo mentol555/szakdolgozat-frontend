@@ -34,4 +34,21 @@ export class AuthEffects {
     })
   ));
 
+  registerUser$ = createEffect(() => this.actions$.pipe(
+    ofType(AuthActions.registerUser),
+    switchMap(action => {
+      return this.apiService.register(action.registerRequest).pipe(
+        map(response => {
+          if (!response.token) {
+            return AuthActions.registerFailed();
+          }
+          localStorage.setItem('token', response.token);
+          this.authService.isLoggedIn = true;
+          this.router.navigate(['/']);
+          return AuthActions.registerSuccess();
+        })
+      );
+    })
+  ));
+
 }

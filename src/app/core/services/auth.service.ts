@@ -9,6 +9,8 @@ import { LoginForm } from "../../modules/auth/login/login.component";
 import { Store } from "@ngrx/store";
 import { AuthActions } from "../../modules/auth/store/actions/actionTypes";
 import { BehaviorSubject } from "rxjs";
+import { RegisterForm } from "../../modules/auth/register/register.component";
+import { RegisterRequest } from "../../shared/models/request/registerRequest";
 
 
 @Injectable({providedIn: 'root'})
@@ -39,4 +41,20 @@ export class AuthService {
         }
         this.store.dispatch(AuthActions.loginUser({loginRequest: request}));
     }
+
+    register(registerForm: FormGroup<RegisterForm>) {
+        if(registerForm.invalid) {
+            registerForm.markAllAsTouched();
+            return;
+        }
+        const request: RegisterRequest = {
+            email: registerForm.controls.email.value,
+            uname: registerForm.controls.username.value,
+            password: registerForm.controls.password.value
+        }
+        console.log(request);
+        this.store.dispatch(AuthActions.registerUser({registerRequest: request}));
+    }
 }
+
+// TODO: after login, fetch user. Token should contain the userID
