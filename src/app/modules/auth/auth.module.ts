@@ -24,14 +24,11 @@ import { AuthService } from '../../core/services/auth.service';
     FormsModule,
     ReactiveFormsModule,
     AuthRoutingModule,
-    StoreModule.forFeature(
-        'authState',
-        reducers
-    ),
     EffectsModule.forFeature([
         AuthEffects
     ])
-  ]
+  ],
+  providers: [AuthService]
 })
 export class AuthModule { }
 

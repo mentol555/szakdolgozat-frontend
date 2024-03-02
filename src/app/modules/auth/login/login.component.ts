@@ -26,6 +26,6 @@ export interface LoginForm {
     }
 
     ngOnInit(): void {
-    
+        this.authService.doLogout();
     }
   }

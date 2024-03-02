@@ -14,6 +14,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { ApiService } from './core/services/api.service';
 import { AuthService } from './core/services/auth.service';
 import { CommonModule } from '@angular/common';
+import { AppEffects } from './store/effects/app.effects';
 
 @NgModule({
     declarations: [
@@ -40,7 +41,7 @@ import { CommonModule } from '@angular/common';
             }
         }),
         StoreDevtoolsModule.instrument({maxAge: 25, logOnly: false}),
-        EffectsModule.forRoot([])
+        EffectsModule.forRoot([AppEffects])
     ]
 })
 export class AppModule { }

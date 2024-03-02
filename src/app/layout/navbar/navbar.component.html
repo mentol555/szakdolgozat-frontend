@@ -22,7 +22,14 @@
       </div>
       <button *ngIf="isLoggedIn$ | async; else loginButton" mat-flat-button (click)="navigateTo('profile')" class="nav-button profile me-2">
         <mat-icon>account_circle</mat-icon>
-        <span>Teszt Profil</span>
+        <ng-container *ngIf="currentUser$ | async as currentUser">
+            @if(currentUser) {
+                <span>{{currentUser.uname}}</span>
+            } 
+            @else {
+                <span>Teszt Profil</span>
+            }
+        </ng-container>
       </button>
       <ng-template #loginButton>
           <button mat-flat-button (click)="navigateTo('auth/login')" class="nav-button profile me-2">

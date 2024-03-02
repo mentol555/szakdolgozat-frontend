@@ -5,6 +5,8 @@ import { map, switchMap } from 'rxjs/operators';
 import { ApiService } from '../../../../core/services/api.service';
 import { Router } from '@angular/router';
 import { AuthService } from '../../../../core/services/auth.service';
+import { of } from 'rxjs';
+import { AppActions } from '../../../../store/actions/actionTypes';
 
 @Injectable()
 export class AuthEffects {
@@ -50,5 +52,4 @@ export class AuthEffects {
       );
     })
   ));
-
 }

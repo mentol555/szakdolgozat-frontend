@@ -11,11 +11,17 @@ import { tap } from 'rxjs';
 export class NavbarComponent {
 
     isLoggedIn$ = this.authService.getIsLoggedIn();
+
+    currentUser$ = this.authService.getCurrentUser();
     
     constructor(
         private router: Router,
         private authService: AuthService
     ) {
+    }
+    
+    ngOnInit(): void {
+      this.authService.loadCurrentUser();
     }
     
     navigateTo(url: string) {

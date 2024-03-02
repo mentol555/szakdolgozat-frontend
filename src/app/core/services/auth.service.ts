@@ -11,14 +11,18 @@ import { AuthActions } from "../../modules/auth/store/actions/actionTypes";
 import { BehaviorSubject } from "rxjs";
 import { RegisterForm } from "../../modules/auth/register/register.component";
 import { RegisterRequest } from "../../shared/models/request/registerRequest";
+import { jwtDecode } from "jwt-decode";
+import { TokenData } from "../../shared/models/tokenData";
+import { AuthSelectors } from "../../modules/auth/store/selectors";
+import { AppSelectors } from "../../store/selectors";
+import { AppActions } from "../../store/actions/actionTypes";
 
 
-@Injectable({providedIn: 'root'})
+@Injectable()
 export class AuthService {
     constructor(
         private store: Store
     ) {
-        localStorage.getItem('token') ? this.isLoggedIn = true : this.isLoggedIn = false;
     }
 
     private _isLoggedIn = new BehaviorSubject<boolean>(false);
@@ -28,6 +32,14 @@ export class AuthService {
     }
     getIsLoggedIn() {
         return this._isLoggedIn.asObservable();
+    }
+
+    loadCurrentUser() {
+        this.store.dispatch(AppActions.loadLoggedInUser());
+    }
+
+    getCurrentUser() {
+        return this.store.select(AppSelectors.appSelector.currentUser);
     }
 
     login(loginForm: FormGroup<LoginForm>) {
@@ -42,6 +54,11 @@ export class AuthService {
         this.store.dispatch(AuthActions.loginUser({loginRequest: request}));
     }
 
+    doLogout() {
+        localStorage.clear();
+        this.isLoggedIn = false;
+    }
+
     register(registerForm: FormGroup<RegisterForm>) {
         if(registerForm.invalid) {
             registerForm.markAllAsTouched();
@@ -52,8 +69,22 @@ export class AuthService {
             uname: registerForm.controls.username.value,
             password: registerForm.controls.password.value
         }
-        console.log(request);
         this.store.dispatch(AuthActions.registerUser({registerRequest: request}));
+    }
+
+    getToken() {
+        return localStorage.getItem('token') || "";
+    }
+
+    getDecodedToken() {
+        if(this.getToken()) {
+            return jwtDecode(this.getToken()) as TokenData;
+        }
+        return;
+    }
+
+    getUserId() {
+        return this.getDecodedToken()?.userId;
     }
 }
 

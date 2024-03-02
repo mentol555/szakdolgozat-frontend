@@ -17,4 +17,8 @@ export class ApiService {
     register(request: RegisterRequest) {
         return this.http.post<LoginResponse>(environment.apiUrl + '/auth/register', request);
     }
+
+    getUserById(userId: number) {
+        return this.http.get<any>(environment.apiUrl + '/users/' + userId);
+    }
 }
