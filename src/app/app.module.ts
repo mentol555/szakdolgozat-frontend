@@ -15,6 +15,7 @@ import { ApiService } from './core/services/api.service';
 import { AuthService } from './core/services/auth.service';
 import { CommonModule } from '@angular/common';
 import { AppEffects } from './store/effects/app.effects';
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
     declarations: [
@@ -31,6 +32,9 @@ import { AppEffects } from './store/effects/app.effects';
         BrowserModule,
         HttpClientModule,
         BrowserAnimationsModule,
+        ToastrModule.forRoot({
+            positionClass: 'toast-top-center'
+        }),
         AppRoutingModule,
         StoreModule.forRoot(reducers, {
             runtimeChecks: {

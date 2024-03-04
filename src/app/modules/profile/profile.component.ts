@@ -10,7 +10,6 @@ export class ProfileComponent implements OnInit {
     selectedTab = 1;
 
     ngOnInit() {
-        console.log("ONINIT PROFILE")
     }
 
     selectTab(index: number) {

@@ -26,7 +26,6 @@ export class DocEditorComponent implements OnInit {
     }
 
     ngOnInit() {
-        console.log("ONINIT DOCEDITOR")
     }
 
     changeContent(editorContent: string) {

@@ -1,0 +1,9 @@
+<ng-container *ngIf="imageLoader$ | async"></ng-container>
+<div class="wrapper">
+    <div class="image-wrapper">
+        <img *ngIf="imageData" [src]="imageData" alt="Image">
+    </div>
+    <div class="content-wrapper">
+        <p>Teszt beküldő</p>
+    </div>
+</div>
