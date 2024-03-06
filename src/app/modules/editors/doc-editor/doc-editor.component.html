@@ -1,4 +1,7 @@
 <div class="wrapper">
     <div class="summernote" [ngxSummernote]="config" (summernoteModelChange)="changeContent($event)"></div>
     <div class="summernote-view" [ngxSummernoteView]="getContent()"></div>
+    <div class="action-buttons">
+        <button mat-flat-button (click)="onSave()">Save document</button>
+    </div>
 </div>

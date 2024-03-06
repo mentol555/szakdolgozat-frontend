@@ -7,7 +7,7 @@
             Personal files    
         </button>
         <button class="tab" mat-flat-button (click)="selectTab(3)" [class.is-active]="selectedTab === 3">
-            Tab 3
+            My images
         </button>
     </div>
     <div class="content">
@@ -38,6 +38,13 @@
             </div>
         </div>
         <div class="second-content" *ngIf="selectedTab === 2"></div>
-        <div class="third-content" *ngIf="selectedTab === 3"></div>
+        <div class="third-content" *ngIf="selectedTab === 3">
+            <h2>My images</h2>
+            <div class="image-gallery">
+                <div *ngFor="let image of images$ | async">
+                    <img [src]="image.imageData" alt="Image">
+                </div>
+            </div>
+        </div>
     </div>
 </mat-card>

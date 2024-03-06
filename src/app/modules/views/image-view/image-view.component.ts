@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from "@angular/core";
 import { ImageService } from "../../../core/services/image.service";
 import { ApiService } from "../../../core/services/api.service";
 import { Observable, tap } from "rxjs";
+import { ImageResponse } from "../../../shared/models/response/imageResponse";
 
 @Component({
     selector: 'app-image-view',
@@ -10,25 +11,19 @@ import { Observable, tap } from "rxjs";
 })
 export class ImageViewComponent implements OnInit {
 
-    imageLoader$: Observable<string>;
+    imageLoader$: Observable<ImageResponse>;
 
     imageData: string;
 
     @Input() set id(id: number) {
-        this.imageLoader$ = this.apiService.getImageById(id).pipe(
-            tap((imageHref:any) => {
-                this.renderImage(imageHref); 
+        this.imageLoader$ = this.imageService.getImageById(id).pipe(
+            tap(image => {
+                this.imageData = image.imageData
             })
         );
     }
-    
-    renderImage(imageData: string) {
-        if (imageData && imageData.trim().length > 0) {
-            this.imageData = imageData;
-        }
-    }
   
-    constructor(private apiService: ApiService) {}
+    constructor(private imageService: ImageService) {}
   
     ngOnInit() {
     }

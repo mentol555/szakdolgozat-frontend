@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { DocumentService } from '../../../core/services/document.service';
 
 @Component({
   selector: 'app-doc-editor',
@@ -25,6 +26,8 @@ export class DocEditorComponent implements OnInit {
         fontNames: ['Helvetica', 'Arial', 'Arial Black', 'Comic Sans MS', 'Courier New', 'Roboto', 'Times']
     }
 
+    constructor(private documentService: DocumentService) {}
+
     ngOnInit() {
     }
 
@@ -34,5 +37,9 @@ export class DocEditorComponent implements OnInit {
 
     getContent() {
         return this.content;
+    }
+
+    onSave() {
+        this.documentService.saveDocument(this.getContent());
     }
 }

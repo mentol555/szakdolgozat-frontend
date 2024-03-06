@@ -29,4 +29,15 @@ export class ImageEffects {
             )
         })
     ))
+
+    getImagesByUserId = createEffect(() => this.actions$.pipe(
+        ofType(ImageActions.getImagesByUserId),
+        switchMap(action => {
+            return this.apiService.getImagesByUserId(action.userId).pipe(
+                map(response => {
+                    return ImageActions.getImagesByUserIdSuccess({images: response});
+                })
+            )
+        })
+    ))
 }

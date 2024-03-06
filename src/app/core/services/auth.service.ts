@@ -87,5 +87,3 @@ export class AuthService {
         return this.getDecodedToken()?.userId;
     }
 }
-
-// TODO: after login, fetch user. Token should contain the userID

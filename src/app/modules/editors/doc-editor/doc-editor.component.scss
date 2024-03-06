@@ -2,7 +2,7 @@
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    margin: 5em 1em;
+    padding: 5em 1em;
     gap: 1em;
     .summernote-view {
         border-radius: 0.75em;
@@ -24,4 +24,9 @@
         top: -40px;
         color: white;
     }
+}
+.action-buttons {
+    position: absolute;
+    right: 2em;
+    bottom: 2em;
 }
