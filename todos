@@ -1,0 +1,8 @@
+TODO:
+Image gallery with mat cards and clickable to navigate to image view page
+Image: add comments property, like count (?)
+Document gallery: kind of a list that can be opened with click
+Document: add comments property, like count (?)
+Profile: edit user's email, username, password, add extra propertys if needed
+Guest mode, without login: Guest upload image, and this way an entity is created with guest creator user
+Read only mode if it's not our stuff
