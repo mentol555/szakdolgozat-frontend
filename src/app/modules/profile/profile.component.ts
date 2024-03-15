@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ImageService } from '../../core/services/image.service';
 import { AuthService } from '../../core/services/auth.service';
 import { Observable } from 'rxjs';
+import { DocumentService } from '../../core/services/document.service';
 
 @Component({
   selector: 'app-profile',
@@ -13,17 +14,32 @@ export class ProfileComponent implements OnInit {
     selectedTab = 1;
 
     images$ = this.imageService.getImagesByUserId();
+    documents$ = this.documentService.getDocumentsByUserId();
 
-    constructor(private imageService: ImageService, private authService: AuthService) {}
+
+    constructor(
+        private imageService: ImageService, 
+        private authService: AuthService,
+        private documentService: DocumentService
+        ) {}
 
     ngOnInit() {
         const userId = this.authService.getUserId();
         if(userId) {
             this.imageService.loadImagesByUserId(+userId);
+            this.documentService.loadDocumentsByUserId(+userId);
         }
     }
 
     selectTab(index: number) {
         this.selectedTab = index;
+    }
+
+    openImage(imageId: number) {
+        this.imageService.openImage(imageId);
+    }
+
+    openDocument(documentId: number) {
+        this.documentService.openDocument(documentId);
     }
 }

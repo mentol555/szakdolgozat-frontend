@@ -5,12 +5,14 @@ import { ApiService } from "./api.service";
 import { Observable, map, tap } from "rxjs";
 import { ImageResponse } from "../../shared/models/response/imageResponse";
 import { ImageSelectors } from "../../modules/editors/img-editor/store/selectors";
+import { Router } from "@angular/router";
 
 @Injectable()
 export class ImageService {
     constructor(
         private store: Store,
-        private apiService: ApiService
+        private apiService: ApiService,
+        private router: Router
     ) {
     }
 
@@ -61,5 +63,9 @@ export class ImageService {
         const data = URL.createObjectURL(blob);
 
         return data;
+    }
+
+    openImage(imageId: number) {
+        this.router.navigate(['/view/image/' + imageId]);
     }
 }

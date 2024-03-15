@@ -22,10 +22,9 @@ export class MainComponent implements OnInit {
     }
   ]
 
-  constructor(private router: Router, private authService: AuthService) {}
+  constructor(private router: Router) {}
 
   ngOnInit() {
-    localStorage.getItem('token') ? this.authService.isLoggedIn = true : this.authService.isLoggedIn = false;
   }
 
   openMode(modeContent?: ModeItemContent) {

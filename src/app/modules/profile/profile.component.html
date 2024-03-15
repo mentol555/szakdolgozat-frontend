@@ -37,13 +37,20 @@
                 </mat-form-field>
             </div>
         </div>
-        <div class="second-content" *ngIf="selectedTab === 2"></div>
+        <div class="second-content" *ngIf="selectedTab === 2">
+            <h2>My documents</h2>
+            <div class="document-gallery">
+                <mat-card *ngFor="let document of documents$ | async" class="card" (click)="openDocument(document.id)">
+                    <div [innerHTML]="document.content"></div>
+                </mat-card>
+            </div>
+        </div>
         <div class="third-content" *ngIf="selectedTab === 3">
             <h2>My images</h2>
             <div class="image-gallery">
-                <div *ngFor="let image of images$ | async">
-                    <img [src]="image.imageData" alt="Image">
-                </div>
+                <mat-card *ngFor="let image of images$ | async" class="card" (click)="openImage(image.id)">
+                    <img mat-card-image [src]="image.imageData" alt="Image">
+                </mat-card>
             </div>
         </div>
     </div>

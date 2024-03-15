@@ -1,5 +1,7 @@
 import { createAction, props } from "@ngrx/store";
 import { ImageResponse } from "../../../../../shared/models/response/imageResponse";
+import { CommentDto } from "../../../../../shared/models/comment";
+import { CommentRequest } from "../../../../../shared/models/request/commentRequest";
 
 export enum Actions {
     SAVE_IMAGE = '[Save Image] Save Image',
@@ -8,7 +10,15 @@ export enum Actions {
 
     GET_IMAGES_BY_USERID = '[Get Image by UserID] Get Images By UserID',
     GET_IMAGES_BY_USERID_SUCCESS = '[Get Image By UserID Effect] Images by UserID Retrieved',
-    GET_IMAGES_BY_USERID_FAILED = '[Get Image by UserID Effect] Images by UserID Not Retrieved'
+    GET_IMAGES_BY_USERID_FAILED = '[Get Image by UserID Effect] Images by UserID Not Retrieved',
+
+    GET_COMMENTS_BY_IMAGEID = '[Get Comments By ImageID] Get Comments By ImageID',
+    GET_COMMENTS_BY_IMAGEID_SUCCESS = '[Get Comments By IMGID Effect] Comments By ImageID retrieved',
+    GET_COMMENTS_BY_IMAGEID_FAILED = '[Get Comments By IMGID Effect] Get Comments By ImageID failed',
+
+    POST_COMMENT_TO_IMAGE = '[Post Comment To Image] Post Comment To image',
+    POST_COMMENT_TO_IMAGE_SUCCESS = '[Post Comment To Image Effect] Post Commented To image',
+    POST_COMMENT_TO_IMAGE_FAILED = '[Post Comment To Image Effect] Post Comment To image Failed'
 }
 
 export const saveImage = createAction(
@@ -33,4 +43,28 @@ export const getImagesByUserIdSuccess = createAction(
 
 export const getImagesByUserIdFailed = createAction(
     Actions.GET_IMAGES_BY_USERID_FAILED
+);
+
+export const getCommentsByImageId = createAction(
+    Actions.GET_COMMENTS_BY_IMAGEID, props<{imageId: number}>()
+);
+
+export const getCommentsByImageIdSuccess = createAction(
+    Actions.GET_COMMENTS_BY_IMAGEID_SUCCESS, props<{comments: CommentDto[]}>()
+);
+
+export const getCommentsByImageIdFailed = createAction(
+    Actions.GET_COMMENTS_BY_IMAGEID_FAILED
+);
+
+export const postCommentToImage = createAction(
+    Actions.POST_COMMENT_TO_IMAGE, props<{imageId: number, request: CommentRequest}>()
+);
+
+export const postCommentToImageSuccess = createAction(
+    Actions.POST_COMMENT_TO_IMAGE_SUCCESS, props<{comment: CommentDto}>()
+);
+
+export const postCommentToImageFailed = createAction(
+    Actions.POST_COMMENT_TO_IMAGE_FAILED
 );

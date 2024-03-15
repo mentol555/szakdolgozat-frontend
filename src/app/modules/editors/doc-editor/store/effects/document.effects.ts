@@ -5,12 +5,13 @@ import { Router } from "@angular/router";
 import { ApiService } from "../../../../../core/services/api.service";
 import { ToastrService } from "ngx-toastr";
 import { DocumentActions } from "../actions/actionTypes";
+import { DocumentService } from "../../../../../core/services/document.service";
 
 @Injectable()
 export class DocumentEffects {
 
   constructor(
-    private router: Router,
+    private documentService: DocumentService,
     private actions$: Actions,
     private apiService: ApiService,
     private toastrService: ToastrService
@@ -22,9 +23,20 @@ export class DocumentEffects {
         switchMap((action) => {
             return this.apiService.saveDocument(action.content).pipe(
                 map(response => {
-                    this.router.navigate(['/view/document/' + response.id]);
+                    this.documentService.openDocument(response.id);
                     this.toastrService.success("Document saved!", "Success");
                     return DocumentActions.saveDocumentSuccess();
+                })
+            )
+        })
+    ))
+
+    loadDocumentsByUserId = createEffect(() => this.actions$.pipe(
+        ofType(DocumentActions.loadDocumentsByUserId),
+        switchMap(action => {
+            return this.apiService.loadDocumentsByUserId(action.userId).pipe(
+                map(response => {
+                    return DocumentActions.loadDocumentsByUserIdSuccess({documents: response});
                 })
             )
         })

@@ -1,11 +1,16 @@
 import { createFeatureSelector, createSelector } from "@ngrx/store";
 import { ImageState } from "../reducers/image.reducer";
 
-export const imageState = createFeatureSelector<ImageState>('imageState');
+export const imageState = createFeatureSelector<any>('imageState');
+export const profileState = createFeatureSelector<any>('profileState');
+export const viewState = createFeatureSelector<any>('viewState');
 
 export const images = createSelector(
-    imageState,
-    (imageState) => imageState.images
+    profileState,
+    (profileState) => profileState['profileState'].images
 );
 
-//SELECTOR BUGGY
+export const comments = createSelector(
+    viewState,
+    (viewState) => viewState['viewState'].comments
+);

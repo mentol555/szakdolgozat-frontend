@@ -1,4 +1,9 @@
-import { createFeatureSelector } from "@ngrx/store";
-import { DocumentState } from "../reducers/document.reducer";
+import { createFeatureSelector, createSelector } from "@ngrx/store";
 
-export const documentState = createFeatureSelector<DocumentState>('documentState');
+export const documentState = createFeatureSelector<any>('documentState');
+export const profileState = createFeatureSelector<any>('profileState');
+
+export const documents = createSelector(
+    profileState,
+    (profileState) => profileState['profileState'].documents
+);

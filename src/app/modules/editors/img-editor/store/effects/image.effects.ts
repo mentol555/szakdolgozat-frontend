@@ -5,6 +5,7 @@ import { Router } from "@angular/router";
 import { ImageActions } from "../actions/actionTypes";
 import { ApiService } from "../../../../../core/services/api.service";
 import { ToastrService } from "ngx-toastr";
+import { ImageService } from "../../../../../core/services/image.service";
 
 @Injectable()
 export class ImageEffects {
@@ -13,7 +14,8 @@ export class ImageEffects {
     private router: Router,
     private actions$: Actions,
     private apiService: ApiService,
-    private toastrService: ToastrService
+    private toastrService: ToastrService,
+    private imageService: ImageService
   ) {
   }
 
@@ -22,7 +24,7 @@ export class ImageEffects {
         switchMap((action) => {
             return this.apiService.saveImage(action.href).pipe(
                 map(response => {
-                    this.router.navigate(['/view/image/' + response.id]);
+                    this.imageService.openImage(response.id);
                     this.toastrService.success("Image saved!", "Success");
                     return ImageActions.saveImageSuccess();
                 })
@@ -36,6 +38,28 @@ export class ImageEffects {
             return this.apiService.getImagesByUserId(action.userId).pipe(
                 map(response => {
                     return ImageActions.getImagesByUserIdSuccess({images: response});
+                })
+            )
+        })
+    ))
+
+    getCommentsByImageId = createEffect(() => this.actions$.pipe(
+        ofType(ImageActions.getCommentsByImageId),
+        switchMap(action => {
+            return this.apiService.getCommentsByImageId(action.imageId).pipe(
+                map(response => {
+                    return ImageActions.getCommentsByImageIdSuccess({comments: response});
+                })
+            )
+        })
+    ))
+
+    postCommentToImage$ = createEffect(() => this.actions$.pipe(
+        ofType(ImageActions.postCommentToImage),
+        switchMap(action => {
+            return this.apiService.postCommentToImage(action.imageId, action.request).pipe(
+                map(response => {
+                    return ImageActions.postCommentToImageSuccess({comment: response});
                 })
             )
         })

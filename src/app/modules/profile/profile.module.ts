@@ -7,7 +7,9 @@ import { ImageService } from '../../core/services/image.service';
 import { EffectsModule } from '@ngrx/effects';
 import { ImageEffects } from '../editors/img-editor/store/effects/image.effects';
 import { StoreModule } from '@ngrx/store';
-import { reducers } from '../editors/img-editor/store/reducers';
+import { DocumentService } from '../../core/services/document.service';
+import { DocumentEffects } from '../editors/doc-editor/store/effects/document.effects';
+import { reducers } from './store/reducers';
 
 @NgModule({
     declarations: [
@@ -18,12 +20,14 @@ import { reducers } from '../editors/img-editor/store/reducers';
         SharedModule,
         ProfileRoutingModule,
         EffectsModule.forFeature([
+            DocumentEffects,
             ImageEffects
         ]),
-        StoreModule.forFeature('imageState', reducers)
+        StoreModule.forFeature('profileState', reducers)
     ],
     providers: [
-        ImageService
+        ImageService,
+        DocumentService
     ]
 })
 export class ProfileModule { }

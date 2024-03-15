@@ -6,6 +6,9 @@ import { LoginResponse } from "../../shared/models/response/loginResponse";
 import { RegisterRequest } from "../../shared/models/request/registerRequest";
 import { Observable, map } from "rxjs";
 import { ImageResponse } from "../../shared/models/response/imageResponse";
+import { DocumentResponse } from "../../shared/models/response/documentResponse";
+import { CommentDto } from "../../shared/models/comment";
+import { CommentRequest } from "../../shared/models/request/commentRequest";
 
 
 @Injectable()
@@ -49,5 +52,19 @@ export class ApiService {
         headers.set('Accept', 'text/plain');
     
         return this.http.get(`${environment.apiUrl}/document/${id}`, { headers, responseType: 'text' });
-      }
+    }
+
+    loadDocumentsByUserId(userId: number): Observable<DocumentResponse[]> {
+        return this.http.get<DocumentResponse[]>(`${environment.apiUrl}/document/user/${userId}`);
+    }
+
+    //
+
+    getCommentsByImageId(imageId: number) {
+        return this.http.get<CommentDto[]>(`${environment.apiUrl}/comments/image/${imageId}`)
+    }
+
+    postCommentToImage(imageId: number, request: CommentRequest) {
+        return this.http.post<any>(`${environment.apiUrl}/comments/image/${imageId}`, request);
+    }
 }

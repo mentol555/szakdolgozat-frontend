@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from "@angular/core";
 import { Observable, tap } from "rxjs";
 import { ApiService } from "../../../core/services/api.service";
 import { DomSanitizer, SafeHtml } from "@angular/platform-browser";
+import { DocumentService } from "../../../core/services/document.service";
 
 @Component({
     selector: 'app-document-view',
@@ -17,19 +18,12 @@ export class DocumentViewComponent implements OnInit {
     @Input() set id(id: number) {
         this.documentLoader$ = this.apiService.getDocumentById(id).pipe(
             tap((documentContent:any) => {
-                this.renderDocument(documentContent); 
+                this.documentContent = this.documentService.renderDocument(documentContent);
             })
         );
     }
-    
-    renderDocument(documentContent: string) {
-        if (documentContent && documentContent.trim().length > 0) {
-            const decoded = atob(documentContent);
-            this.documentContent = this.sanitizer.bypassSecurityTrustHtml(decoded);
-        }
-    }
   
-    constructor(private apiService: ApiService, private sanitizer: DomSanitizer) {}
+    constructor(private apiService: ApiService, private documentService: DocumentService) {}
   
     ngOnInit() {
     }
