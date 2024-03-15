@@ -43,12 +43,12 @@ export class ImageEffects {
         })
     ))
 
-    getCommentsByImageId = createEffect(() => this.actions$.pipe(
-        ofType(ImageActions.getCommentsByImageId),
+    loadCommentsByImageId = createEffect(() => this.actions$.pipe(
+        ofType(ImageActions.loadCommentsByImageId),
         switchMap(action => {
             return this.apiService.getCommentsByImageId(action.imageId).pipe(
                 map(response => {
-                    return ImageActions.getCommentsByImageIdSuccess({comments: response});
+                    return ImageActions.loadCommentsByImageIdSuccess({comments: response});
                 })
             )
         })

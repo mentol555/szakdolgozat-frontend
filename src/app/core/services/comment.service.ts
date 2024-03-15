@@ -5,6 +5,12 @@ import { CommentRequest } from "../../shared/models/request/commentRequest";
 import { AuthService } from "./auth.service";
 import { ImageActions } from "../../modules/editors/img-editor/store/actions/actionTypes";
 import { ImageSelectors } from "../../modules/editors/img-editor/store/selectors";
+import { DocumentActions } from "../../modules/editors/doc-editor/store/actions/actionTypes";
+
+export enum EntityType  {
+    IMAGE = "IMAGE",
+    DOCUMENT = "DOCUMENT"
+}
 
 @Injectable()
 export class CommentService {
@@ -16,15 +22,22 @@ export class CommentService {
     }
 
     loadCommentsByImageId(imageId: number) {
-        this.store.dispatch(ImageActions.getCommentsByImageId({imageId}));
+        this.store.dispatch(ImageActions.loadCommentsByImageId({imageId}));
+    }
+
+    loadCommentsByDocumentId(documentId: number) {
+        this.store.dispatch(DocumentActions.loadCommentsByDocId({documentId}));
     }
 
     getComments() {
         return this.store.select(ImageSelectors.imageSelector.comments);
     }
 
-    postCommentToImage(imageId: number, content: string) {
+    postComment(id: number, content: string, type: EntityType) {
         const trimmedContent = content.trim();
+        if(!trimmedContent){
+            return;
+        }
         this.authService.getCurrentUser().subscribe(user => {
             const request: CommentRequest = {
                 content: trimmedContent,
@@ -32,7 +45,11 @@ export class CommentService {
                 commenterName: user.uname
             };
             
-            this.store.dispatch(ImageActions.postCommentToImage({imageId, request}));
+            if(type === EntityType.DOCUMENT) {
+                this.store.dispatch(DocumentActions.postCommentToDocument({documentId: id, request}));
+            } else {
+                this.store.dispatch(ImageActions.postCommentToImage({imageId: id, request}));
+            }
             } 
         );
     }

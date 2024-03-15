@@ -3,6 +3,22 @@
     <div [innerHTML]="documentContent" class="document-wrapper mt-2">
     </div>
     <div class="content-wrapper">
-        <p>Teszt beküldő</p>
+        <div class="comments-wrapper">
+            <div *ngFor="let comment of comments$ | async" class="comment">
+                <div class="commenter">
+                    <div class="avatar-wrapper">
+                        <img src="http://placekitten.com/500/500"/>
+                    </div>
+                </div>
+                <span class="comment-content">
+                    <span class="commenter-name">{{comment.commenterName}}</span>
+                    <span class="comment-text">{{comment.content}}</span>
+                </span>
+            </div>
+        </div>
+        <div class="form-group create-comment" *ngIf="isLoggedIn$ | async">
+            <textarea [formControl]="commentContent" maxlength="200" class="form-control" placeholder="Add comment..." id="exampleFormControlTextarea1" rows="2" (resize)="false"></textarea>
+            <button class="send-button" color="primary" (click)="postComment()" *ngIf="commentContent.value" mat-icon-button><mat-icon>send</mat-icon></button>
+        </div>
     </div>
 </div>

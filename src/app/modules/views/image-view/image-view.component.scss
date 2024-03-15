@@ -49,7 +49,8 @@
     max-height: 100%;
     overflow-y: auto; /* Enable vertical scrolling if content exceeds container height */
     overflow-x: hidden;
-    max-width: 1200px;
+    width: 100%;
+    max-width: 600px;
     margin-left: 50%;
     transform: translateX(-50%);
     padding: 1em;
@@ -100,7 +101,8 @@
 
   .create-comment {
     position: relative;
-    max-width: 1200px;
+    width: 100%;
+    max-width: 600px;
     margin-left: 50%;
     transform: translateX(-50%);
     textarea {

@@ -4,7 +4,7 @@ import { ApiService } from "../../../core/services/api.service";
 import { Observable, tap } from "rxjs";
 import { ImageResponse } from "../../../shared/models/response/imageResponse";
 import { CommentDto } from "../../../shared/models/comment";
-import { CommentService } from "../../../core/services/comment.service";
+import { CommentService, EntityType } from "../../../core/services/comment.service";
 import { FormControl } from "@angular/forms";
 import { AuthService } from "../../../core/services/auth.service";
 
@@ -16,7 +16,6 @@ import { AuthService } from "../../../core/services/auth.service";
 export class ImageViewComponent implements OnInit {
 
     imageLoader$: Observable<ImageResponse>;
-    commentLoader$: Observable<ImageResponse>;
 
     comments$: Observable<CommentDto[]> = this.commentService.getComments();
 
@@ -48,9 +47,8 @@ export class ImageViewComponent implements OnInit {
 
     postComment() {
         if(this.commentContent.value) {
-            this.commentService.postCommentToImage(this.imageId, this.commentContent.value);
+            this.commentService.postComment(this.imageId, this.commentContent.value, EntityType.IMAGE);
             this.commentContent.reset();
         }
     }
 }
-  

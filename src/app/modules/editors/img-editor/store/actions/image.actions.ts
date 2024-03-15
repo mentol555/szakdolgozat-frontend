@@ -12,9 +12,9 @@ export enum Actions {
     GET_IMAGES_BY_USERID_SUCCESS = '[Get Image By UserID Effect] Images by UserID Retrieved',
     GET_IMAGES_BY_USERID_FAILED = '[Get Image by UserID Effect] Images by UserID Not Retrieved',
 
-    GET_COMMENTS_BY_IMAGEID = '[Get Comments By ImageID] Get Comments By ImageID',
-    GET_COMMENTS_BY_IMAGEID_SUCCESS = '[Get Comments By IMGID Effect] Comments By ImageID retrieved',
-    GET_COMMENTS_BY_IMAGEID_FAILED = '[Get Comments By IMGID Effect] Get Comments By ImageID failed',
+    LOAD_COMMENTS_BY_IMAGEID = '[Load Comments By ImageID] Load Comments By ImageID',
+    LOAD_COMMENTS_BY_IMAGEID_SUCCESS = '[Load Comments By IMGID Effect] Comments By ImageID retrieved',
+    LOAD_COMMENTS_BY_IMAGEID_FAILED = '[Load Comments By IMGID Effect] Load Comments By ImageID failed',
 
     POST_COMMENT_TO_IMAGE = '[Post Comment To Image] Post Comment To image',
     POST_COMMENT_TO_IMAGE_SUCCESS = '[Post Comment To Image Effect] Post Commented To image',
@@ -45,16 +45,16 @@ export const getImagesByUserIdFailed = createAction(
     Actions.GET_IMAGES_BY_USERID_FAILED
 );
 
-export const getCommentsByImageId = createAction(
-    Actions.GET_COMMENTS_BY_IMAGEID, props<{imageId: number}>()
+export const loadCommentsByImageId = createAction(
+    Actions.LOAD_COMMENTS_BY_IMAGEID, props<{imageId: number}>()
 );
 
-export const getCommentsByImageIdSuccess = createAction(
-    Actions.GET_COMMENTS_BY_IMAGEID_SUCCESS, props<{comments: CommentDto[]}>()
+export const loadCommentsByImageIdSuccess = createAction(
+    Actions.LOAD_COMMENTS_BY_IMAGEID_SUCCESS, props<{comments: CommentDto[]}>()
 );
 
-export const getCommentsByImageIdFailed = createAction(
-    Actions.GET_COMMENTS_BY_IMAGEID_FAILED
+export const loadCommentsByImageIdFailed = createAction(
+    Actions.LOAD_COMMENTS_BY_IMAGEID_FAILED
 );
 
 export const postCommentToImage = createAction(

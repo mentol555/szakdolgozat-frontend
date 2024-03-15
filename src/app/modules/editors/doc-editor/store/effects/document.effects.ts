@@ -41,4 +41,26 @@ export class DocumentEffects {
             )
         })
     ))
+
+    loadCommentsByDocumentId = createEffect(() => this.actions$.pipe(
+        ofType(DocumentActions.loadCommentsByDocId),
+        switchMap(action => {
+            return this.apiService.getCommentsByDocumentId(action.documentId).pipe(
+                map(response => {
+                    return DocumentActions.loadCommentsByDocIdSuccess({comments: response});
+                })
+            )
+        })
+    ))
+
+    postCommentToImage$ = createEffect(() => this.actions$.pipe(
+        ofType(DocumentActions.postCommentToDocument),
+        switchMap(action => {
+            return this.apiService.postCommentToDocument(action.documentId, action.request).pipe(
+                map(response => {
+                    return DocumentActions.postCommentToDocumentSuccess({comment: response});
+                })
+            )
+        })
+    ))
 }

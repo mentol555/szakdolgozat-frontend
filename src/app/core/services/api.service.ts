@@ -67,4 +67,12 @@ export class ApiService {
     postCommentToImage(imageId: number, request: CommentRequest) {
         return this.http.post<any>(`${environment.apiUrl}/comments/image/${imageId}`, request);
     }
+
+    getCommentsByDocumentId(documentId: number) {
+        return this.http.get<CommentDto[]>(`${environment.apiUrl}/comments/document/${documentId}`)
+    }
+
+    postCommentToDocument(documentId: number, request: CommentRequest) {
+        return this.http.post<any>(`${environment.apiUrl}/comments/document/${documentId}`, request);
+    }
 }

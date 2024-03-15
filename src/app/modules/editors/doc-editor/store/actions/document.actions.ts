@@ -1,5 +1,7 @@
 import { createAction, props } from "@ngrx/store";
 import { DocumentResponse } from "../../../../../shared/models/response/documentResponse";
+import { CommentDto } from "../../../../../shared/models/comment";
+import { CommentRequest } from "../../../../../shared/models/request/commentRequest";
 
 export enum Actions {
     SAVE_DOCUMENT = '[Save Document] Save Document',
@@ -8,7 +10,15 @@ export enum Actions {
 
     LOAD_DOCUMENTS_BY_USERID = '[Load Documents By UserID] Load Documents By UserID',
     LOAD_DOCUMENTS_BY_USERID_SUCCESS = '[Load Documents By UserID Success] Documents loaded by userID',
-    LOAD_DOCUMENTS_BY_USERID_FAILED = '[Load Documents by UserID Failed] Failed to load documents by userID'
+    LOAD_DOCUMENTS_BY_USERID_FAILED = '[Load Documents by UserID Failed] Failed to load documents by userID',
+
+    LOAD_COMMENTS_BY_DOCID = '[Load Comments By DOCID] Load Comments By DOCID',
+    LOAD_COMMENTS_BY_DOCID_SUCCESS = '[Load Comments By DOCID Effect] Comments By DOCID retrieved',
+    LOAD_COMMENTS_BY_DOCID_FAILED = '[Load Comments By DOCID Effect] Load Comments By DOCID failed',
+
+    POST_COMMENT_TO_DOCUMENT = '[Post Comment To Document] Post Comment To Document',
+    POST_COMMENT_TO_DOCUMENT_SUCCESS = '[Post Comment To Document Effect] Post Commented To Document',
+    POST_COMMENT_TO_DOCUMENT_FAILED = '[Post Comment To Document Effect] Post Comment To Document Failed'
 }
 
 export const saveDocument = createAction(
@@ -33,4 +43,28 @@ export const loadDocumentsByUserIdSuccess = createAction(
 
 export const loadDocumentsByUserIdFailed = createAction(
     Actions.LOAD_DOCUMENTS_BY_USERID_FAILED
+);
+
+export const loadCommentsByDocId = createAction(
+    Actions.LOAD_COMMENTS_BY_DOCID, props<{documentId: number}>()
+);
+
+export const loadCommentsByDocIdSuccess = createAction(
+    Actions.LOAD_COMMENTS_BY_DOCID_SUCCESS, props<{comments: CommentDto[]}>()
+);
+
+export const loadCommentsByDocIdFailed = createAction(
+    Actions.LOAD_COMMENTS_BY_DOCID_FAILED
+);
+
+export const postCommentToDocument = createAction(
+    Actions.POST_COMMENT_TO_DOCUMENT, props<{documentId: number, request: CommentRequest}>()
+);
+
+export const postCommentToDocumentSuccess = createAction(
+    Actions.POST_COMMENT_TO_DOCUMENT_SUCCESS, props<{comment: CommentDto}>()
+);
+
+export const postCommentToDocumentFailed = createAction(
+    Actions.POST_COMMENT_TO_DOCUMENT_FAILED
 );
