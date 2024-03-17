@@ -48,8 +48,12 @@
         <div class="third-content" *ngIf="selectedTab === 3">
             <h2>My images</h2>
             <div class="image-gallery">
-                <mat-card *ngFor="let image of images$ | async" class="card" (click)="openImage(image.id)">
+                <mat-card *ngFor="let image of images$ | async" class="card" (click)="openImage(image.id, $event)">
                     <img mat-card-image [src]="image.imageData" alt="Image">
+                    <span class="actions">
+                        <mat-icon color="primary" (click)="openImage(image.id, $event)">visibility</mat-icon>
+                        <mat-icon color="primary" (click)="editImage(image.id, $event)">edit</mat-icon>
+                    </span>
                 </mat-card>
             </div>
         </div>

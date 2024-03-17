@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Editor } from 'mini-canvas-editor';
-import { ImageService } from '../../../core/services/image.service';
+import { Editor, EditorMode } from 'mini-canvas-editor';
+import { CustomEditorMode, ImageService } from '../../../core/services/image.service';
 import { Observable, catchError, tap, throwError } from 'rxjs';
 import { ImageResponse } from '../../../shared/models/response/imageResponse';
 import { ApiService } from '../../../core/services/api.service';
@@ -25,12 +25,12 @@ export class ImgEditorComponent implements OnInit {
                                 this.authService.notAuthorized();
                             }
                         }
-                        
                         const img1 = new Image();
                         img1.onload = () => {
                             this.editor = Editor.createFromImage(this.placeholder, img1, { workspaceHeight: 700, workspaceWidth: 700 }, {});
                         };
-                        img1.src = image.imageData;   
+                        img1.src = image.imageData;
+                        this.mode = CustomEditorMode.MODIFY;
                     }
                 }),
                 catchError((error: HttpErrorResponse) => {
@@ -46,7 +46,10 @@ export class ImgEditorComponent implements OnInit {
     }
 
     editor: Editor;
+    CustomEditorMode = CustomEditorMode;
 
+    mode: CustomEditorMode = CustomEditorMode.CREATE;
+    
     imageLoader$: Observable<ImageResponse>;
     placeholder: HTMLElement;
 
@@ -66,6 +69,11 @@ export class ImgEditorComponent implements OnInit {
 		a.download = 'crop.png';
         const rendered = this.editor.render();
 		a.href = rendered.toDataURL('image/png');
-        this.imageService.saveImage(a.href);
+        if(this.mode === CustomEditorMode.CREATE) {
+            this.imageService.saveImage(a.href);
+        } else {
+            // TODO : MODIFY IMAGE
+            //this.imageService.modifyImage(a.href, this.);
+        }
 	};
 }

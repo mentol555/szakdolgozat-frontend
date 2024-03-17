@@ -35,8 +35,14 @@ export class ProfileComponent implements OnInit {
         this.selectedTab = index;
     }
 
-    openImage(imageId: number) {
+    openImage(imageId: number, $event: any) {
+        $event.stopPropagation();
         this.imageService.openImage(imageId);
+    }
+
+    editImage(imageId: number, $event: any) {
+        $event.stopPropagation();
+        this.imageService.editImage(imageId);
     }
 
     openDocument(documentId: number) {

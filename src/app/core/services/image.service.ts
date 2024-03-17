@@ -7,6 +7,11 @@ import { ImageResponse } from "../../shared/models/response/imageResponse";
 import { ImageSelectors } from "../../modules/editors/img-editor/store/selectors";
 import { Router } from "@angular/router";
 
+export enum CustomEditorMode {
+    CREATE = 'CREATE',
+    MODIFY = 'MODIFY'
+}
+
 @Injectable()
 export class ImageService {
     constructor(
@@ -67,5 +72,9 @@ export class ImageService {
 
     openImage(imageId: number) {
         this.router.navigate(['/view/image/' + imageId]);
+    }
+
+    editImage(imageId: number) {
+        this.router.navigate(['/img-editor/' + imageId]);
     }
 }

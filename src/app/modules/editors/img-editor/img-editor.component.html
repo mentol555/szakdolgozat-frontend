@@ -3,6 +3,6 @@
     <p style="padding: 25px;color: white">Image editor</p>
     <div id="placeholder"></div>
     <div class="action-buttons">
-        <button mat-flat-button (click)="onSave()">Save image</button>
+        <button mat-flat-button (click)="onSave()">{{mode === CustomEditorMode.CREATE ? 'Save image' : 'Modify Image'}}</button>
     </div>
 </div>

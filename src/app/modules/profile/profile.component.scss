@@ -90,6 +90,18 @@ button {
         width: 250px;
         max-width: 250px;
         cursor: pointer;
+        position: relative;
+        .actions {
+            border-top-left-radius: 10px;
+            position: absolute;
+            display: flex;
+            align-items: center;
+            gap: 3px;
+            background: white;
+            padding: 5px;
+            right:0;
+            bottom:0;
+        }
     }
 }
 
