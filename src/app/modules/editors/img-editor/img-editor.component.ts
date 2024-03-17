@@ -1,6 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Editor } from 'mini-canvas-editor';
 import { ImageService } from '../../../core/services/image.service';
+import { Observable, catchError, tap, throwError } from 'rxjs';
+import { ImageResponse } from '../../../shared/models/response/imageResponse';
+import { ApiService } from '../../../core/services/api.service';
+import { HttpErrorResponse } from '@angular/common/http';
+import { AuthService } from '../../../core/services/auth.service';
 
 @Component({
   selector: 'app-img-editor',
@@ -8,14 +13,52 @@ import { ImageService } from '../../../core/services/image.service';
   styleUrl: './img-editor.component.scss'
 })
 export class ImgEditorComponent implements OnInit {
+    
+    @Input() set id(id: number) {
+        if (id) {
+            this.imageLoader$ = this.imageService.getImageById(id).pipe(
+                tap(image => {
+                    if(image) {
+                        const currentUserId = this.authService.getUserId();
+                        if(currentUserId) {
+                            if(!image.creatorUserId || image.creatorUserId !== +currentUserId) {
+                                this.authService.notAuthorized();
+                            }
+                        }
+                        
+                        const img1 = new Image();
+                        img1.onload = () => {
+                            this.editor = Editor.createFromImage(this.placeholder, img1, { workspaceHeight: 700, workspaceWidth: 700 }, {});
+                        };
+                        img1.src = image.imageData;   
+                    }
+                }),
+                catchError((error: HttpErrorResponse) => {
+                    if(error.status === 404) {
+                        this.newImage();
+                    }
+                    throw(error);    
+                })
+            );
+        } else {
+            this.newImage();
+        }
+    }
 
     editor: Editor;
 
-    constructor(private imageService: ImageService) {}
+    imageLoader$: Observable<ImageResponse>;
+    placeholder: HTMLElement;
+
+    constructor(private imageService: ImageService, private authService: AuthService) {}
 
     ngOnInit() {
-        const placeholder = document.getElementById('placeholder') as HTMLElement;
-        this.editor = Editor.createBlank(placeholder, 700, 700, {});
+        this.placeholder = document.getElementById('placeholder') as HTMLElement;
+    }
+
+    newImage() {
+        this.placeholder = document.getElementById('placeholder') as HTMLElement;
+        this.editor = Editor.createBlank(this.placeholder, 700, 700, {});
     }
 
     onSave() {

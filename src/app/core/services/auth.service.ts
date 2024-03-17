@@ -16,12 +16,14 @@ import { TokenData } from "../../shared/models/tokenData";
 import { AuthSelectors } from "../../modules/auth/store/selectors";
 import { AppSelectors } from "../../store/selectors";
 import { AppActions } from "../../store/actions/actionTypes";
+import { Router } from "@angular/router";
 
 
 @Injectable()
 export class AuthService {
     constructor(
-        private store: Store
+        private store: Store,
+        private router: Router
     ) {
     }
 
@@ -85,5 +87,9 @@ export class AuthService {
 
     getUserId() {
         return this.getDecodedToken()?.userId;
+    }
+
+    notAuthorized() {
+        this.router.navigate(['/']);
     }
 }
