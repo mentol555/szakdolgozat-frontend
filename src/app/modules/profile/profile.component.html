@@ -40,8 +40,12 @@
         <div class="second-content" *ngIf="selectedTab === 2">
             <h2>My documents</h2>
             <div class="document-gallery">
-                <mat-card *ngFor="let document of documents$ | async" class="card" (click)="openDocument(document.id)">
+                <mat-card *ngFor="let document of documents$ | async" class="card" (click)="openDocument(document.id, $event)">
                     <div [innerHTML]="document.content"></div>
+                    <span class="actions">
+                        <mat-icon color="primary" (click)="openDocument(document.id, $event)">visibility</mat-icon>
+                        <mat-icon color="primary" (click)="editDocument(document.id, $event)">edit</mat-icon>
+                    </span>
                 </mat-card>
             </div>
         </div>

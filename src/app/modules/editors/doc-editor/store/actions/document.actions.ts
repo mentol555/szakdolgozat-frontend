@@ -8,6 +8,10 @@ export enum Actions {
     SAVE_DOCUMENT_SUCCESS = '[Save Document Effect] Document Saved',
     SAVE_DOCUMENT_FAILED = '[Save Document Effect] Document Not Saved',
 
+    MODIFY_DOCUMENT = '[Modify Document] Modify Document',
+    MODIFY_DOCUMENT_SUCCESS = '[Modify Document Effect] Document Modified',
+    MODIFY_DOCUMENT_FAILED = '[Modify Document Effect] Document Not Modified',
+
     LOAD_DOCUMENTS_BY_USERID = '[Load Documents By UserID] Load Documents By UserID',
     LOAD_DOCUMENTS_BY_USERID_SUCCESS = '[Load Documents By UserID Success] Documents loaded by userID',
     LOAD_DOCUMENTS_BY_USERID_FAILED = '[Load Documents by UserID Failed] Failed to load documents by userID',
@@ -31,6 +35,18 @@ export const saveDocumentSuccess = createAction(
 
 export const saveDocumentFailed = createAction(
     Actions.SAVE_DOCUMENT_FAILED
+);
+
+export const modifyDocument = createAction(
+    Actions.MODIFY_DOCUMENT, props<{id: number, content: string}>()
+);
+
+export const modifyDocumentSuccess = createAction(
+    Actions.MODIFY_DOCUMENT_SUCCESS
+);
+
+export const modifyDocumentFailed = createAction(
+    Actions.MODIFY_DOCUMENT_FAILED
 );
 
 export const loadDocumentsByUserId = createAction(

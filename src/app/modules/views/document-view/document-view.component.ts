@@ -8,6 +8,7 @@ import { CommentService } from "../../../core/services/comment.service";
 import { AuthService } from "../../../core/services/auth.service";
 import { FormControl } from "@angular/forms";
 import {EntityType} from "../../../core/services/comment.service";
+import { DocumentResponse } from "../../../shared/models/response/documentResponse";
 
 @Component({
     selector: 'app-document-view',
@@ -16,7 +17,7 @@ import {EntityType} from "../../../core/services/comment.service";
 })
 export class DocumentViewComponent implements OnInit {
   
-    documentLoader$: Observable<string>;
+    documentLoader$: Observable<DocumentResponse>;
 
     documentContent: SafeHtml;
 
@@ -30,9 +31,9 @@ export class DocumentViewComponent implements OnInit {
 
     @Input() set id(id: number) {
         this.documentId = id;
-        this.documentLoader$ = this.apiService.getDocumentById(id).pipe(
-            tap((documentContent:any) => {
-                this.documentContent = this.documentService.renderDocument(documentContent);
+        this.documentLoader$ = this.documentService.getDocumentById(id).pipe(
+            tap((document: DocumentResponse) => {
+                this.documentContent = document.content;
             })
         );
         this.commentService.loadCommentsByDocumentId(id);

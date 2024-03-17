@@ -45,7 +45,13 @@ export class ProfileComponent implements OnInit {
         this.imageService.editImage(imageId);
     }
 
-    openDocument(documentId: number) {
+    openDocument(documentId: number, $event: any) {
+        $event.stopPropagation();
         this.documentService.openDocument(documentId);
+    }
+
+    editDocument(documentId: number, $event: any) {
+        $event.stopPropagation();
+        this.documentService.editDocument(documentId);
     }
 }

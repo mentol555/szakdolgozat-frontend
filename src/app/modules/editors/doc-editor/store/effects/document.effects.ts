@@ -31,6 +31,19 @@ export class DocumentEffects {
         })
     ))
 
+    modifyDocument$ = createEffect(() => this.actions$.pipe(
+        ofType(DocumentActions.modifyDocument),
+        switchMap((action) => {
+            return this.apiService.modifyDocument(action.id, action.content).pipe(
+                map(response => {
+                    this.documentService.openDocument(response.id);
+                    this.toastrService.success("Document modified!", "Success");
+                    return DocumentActions.modifyDocumentSuccess();
+                })
+            )
+        })
+    ))
+
     loadDocumentsByUserId = createEffect(() => this.actions$.pipe(
         ofType(DocumentActions.loadDocumentsByUserId),
         switchMap(action => {

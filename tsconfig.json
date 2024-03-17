@@ -14,6 +14,7 @@
     "esModuleInterop": true,
     "sourceMap": true,
     "declaration": false,
+    "types": ["jquery"],
     "experimentalDecorators": true,
     "moduleResolution": "node",
     "importHelpers": true,

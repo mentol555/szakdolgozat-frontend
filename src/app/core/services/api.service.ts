@@ -51,11 +51,12 @@ export class ApiService {
         return this.http.post<any>(environment.apiUrl + '/document/new', content);
     }
 
-    getDocumentById(id: number): Observable<string> {
-        const headers = new HttpHeaders();
-        headers.set('Accept', 'text/plain');
-    
-        return this.http.get(`${environment.apiUrl}/document/${id}`, { headers, responseType: 'text' });
+    modifyDocument(id: number, content: string) {
+        return this.http.put<any>(environment.apiUrl + '/document/' + id, content);
+    }
+
+    getDocumentById(id: number): Observable<DocumentResponse> {
+        return this.http.get<DocumentResponse>(`${environment.apiUrl}/document/${id}`);
     }
 
     loadDocumentsByUserId(userId: number): Observable<DocumentResponse[]> {
