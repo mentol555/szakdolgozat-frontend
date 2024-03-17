@@ -25,6 +25,10 @@ export class ImageService {
         this.store.dispatch(ImageActions.saveImage({href}));
     }
 
+    modifyImage(id: number, href: string) {
+        this.store.dispatch(ImageActions.modifyImage({id, href}));
+    }
+
     getImageById(id: number): Observable<ImageResponse> {
         return this.apiService.getImageById(id).pipe(
             map((image: ImageResponse) => {

@@ -8,6 +8,10 @@ export enum Actions {
     SAVE_IMAGE_SUCCESS = '[Save Image Effect] Image Saved',
     SAVE_IMAGE_FAILED = '[Save Image Effect] Image Not Saved',
 
+    MODIFY_IMAGE = '[Modify Image] Modify Image',
+    MODIFY_IMAGE_SUCCESS = '[Modify Image Effect] Image Modified',
+    MODIFY_IMAGE_FAILED = '[Modify Image Effect] Image Not Modified',
+
     GET_IMAGES_BY_USERID = '[Get Image by UserID] Get Images By UserID',
     GET_IMAGES_BY_USERID_SUCCESS = '[Get Image By UserID Effect] Images by UserID Retrieved',
     GET_IMAGES_BY_USERID_FAILED = '[Get Image by UserID Effect] Images by UserID Not Retrieved',
@@ -31,6 +35,18 @@ export const saveImageSuccess = createAction(
 
 export const saveImageFailed = createAction(
     Actions.SAVE_IMAGE_FAILED
+);
+
+export const modifyImage = createAction(
+    Actions.MODIFY_IMAGE, props<{id: number, href: string}>()
+);
+
+export const modifyImageSuccess = createAction(
+    Actions.MODIFY_IMAGE_SUCCESS
+);
+
+export const modifyImageFailed = createAction(
+    Actions.MODIFY_IMAGE_FAILED
 );
 
 export const getImagesByUserId = createAction(

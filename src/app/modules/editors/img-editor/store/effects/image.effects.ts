@@ -32,6 +32,19 @@ export class ImageEffects {
         })
     ))
 
+    modifyImage$ = createEffect(() => this.actions$.pipe(
+        ofType(ImageActions.modifyImage),
+        switchMap((action) => {
+            return this.apiService.modifyImage(action.id, action.href).pipe(
+                map(response => {
+                    this.imageService.openImage(response.id);
+                    this.toastrService.success("Image modified!", "Success");
+                    return ImageActions.modifyImageSuccess();
+                })
+            )
+        })
+    ))
+
     getImagesByUserId = createEffect(() => this.actions$.pipe(
         ofType(ImageActions.getImagesByUserId),
         switchMap(action => {

@@ -41,6 +41,10 @@ export class ApiService {
         return this.http.get<ImageResponse[]>(`${environment.apiUrl}/image/user/${userId}`);
     }
 
+    modifyImage(id: number, href: string) {
+        return this.http.put<any>(environment.apiUrl + '/image/' + id, href);
+    }
+
     // 
 
     saveDocument(content: string) {

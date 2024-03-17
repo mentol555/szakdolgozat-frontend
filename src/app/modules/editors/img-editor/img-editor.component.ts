@@ -16,6 +16,7 @@ export class ImgEditorComponent implements OnInit {
     
     @Input() set id(id: number) {
         if (id) {
+            this.imageId = id;
             this.imageLoader$ = this.imageService.getImageById(id).pipe(
                 tap(image => {
                     if(image) {
@@ -45,6 +46,7 @@ export class ImgEditorComponent implements OnInit {
         }
     }
 
+    imageId: number;
     editor: Editor;
     CustomEditorMode = CustomEditorMode;
 
@@ -72,8 +74,7 @@ export class ImgEditorComponent implements OnInit {
         if(this.mode === CustomEditorMode.CREATE) {
             this.imageService.saveImage(a.href);
         } else {
-            // TODO : MODIFY IMAGE
-            //this.imageService.modifyImage(a.href, this.);
+            this.imageService.modifyImage(this.imageId, a.href);
         }
 	};
 }
