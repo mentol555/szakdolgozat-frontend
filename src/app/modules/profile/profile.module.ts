@@ -10,6 +10,7 @@ import { StoreModule } from '@ngrx/store';
 import { DocumentService } from '../../core/services/document.service';
 import { DocumentEffects } from '../editors/doc-editor/store/effects/document.effects';
 import { reducers } from './store/reducers';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
     declarations: [
@@ -18,6 +19,8 @@ import { reducers } from './store/reducers';
     imports: [
         CommonModule,
         SharedModule,
+        FormsModule,
+        ReactiveFormsModule,
         ProfileRoutingModule,
         EffectsModule.forFeature([
             DocumentEffects,

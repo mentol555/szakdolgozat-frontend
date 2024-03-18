@@ -17,6 +17,7 @@ import { AuthSelectors } from "../../modules/auth/store/selectors";
 import { AppSelectors } from "../../store/selectors";
 import { AppActions } from "../../store/actions/actionTypes";
 import { Router } from "@angular/router";
+import { UserData } from "./image.service";
 
 
 @Injectable()
@@ -91,5 +92,9 @@ export class AuthService {
 
     notAuthorized() {
         this.router.navigate(['/']);
+    }
+
+    updateUserData(id: number, userdata: UserData) {
+        this.store.dispatch(AppActions.updateUserData({id, userdata}));
     }
 }

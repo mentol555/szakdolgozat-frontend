@@ -9,6 +9,9 @@ import { ImageResponse } from "../../shared/models/response/imageResponse";
 import { DocumentResponse } from "../../shared/models/response/documentResponse";
 import { CommentDto } from "../../shared/models/comment";
 import { CommentRequest } from "../../shared/models/request/commentRequest";
+import { UserData } from "./image.service";
+import { User } from "../../shared/models/user";
+import { UpdateUserResponse } from "../../shared/models/response/updateUserResponse";
 
 
 @Injectable()
@@ -25,6 +28,10 @@ export class ApiService {
 
     getUserById(userId: number) {
         return this.http.get<any>(environment.apiUrl + '/users/' + userId);
+    }
+
+    updateUserData(id: number, userdata: UserData) {
+        return this.http.put<UpdateUserResponse>(environment.apiUrl + '/users/' + id, userdata);
     }
 
     // IMAGE

@@ -1,6 +1,8 @@
 .wrapper {
     height: 100%;
     width: 100%;
+    max-width: 1000px;
+    margin: 0 auto;
     background-color: rgb(238, 238, 238);
     display: grid;
     grid-template-columns: 1fr;
@@ -24,11 +26,10 @@
             flex-direction: column;
         }
         .data-wrapper {
-            display: grid;
+            display: flex;
             width: 100%;
-            max-width: 600px;
-            grid-template-columns: 1fr;
-            grid-template-rows: auto;
+            max-width: 500px;
+            flex-direction: column;
             gap: 10px;
         }
         .profile-wrapper {
@@ -74,7 +75,7 @@
 }
 
 
-button {
+.tab {
     cursor: pointer;
     border-radius: 0 !important;
     background-color: rgb(238, 238, 238) !important;
@@ -129,4 +130,9 @@ button {
             bottom:0;
         }
     }
+}
+
+.save-button{
+    margin-left: auto;
+    width: 150px;
 }

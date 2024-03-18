@@ -1,65 +1,77 @@
-<mat-card class="wrapper">
-    <div class="tabs">
-        <button class="tab" mat-flat-button (click)="selectTab(1)" [class.is-active]="selectedTab === 1">
-            Personal information
-        </button>
-        <button class="tab" mat-flat-button (click)="selectTab(2)" [class.is-active]="selectedTab === 2">
-            Personal files    
-        </button>
-        <button class="tab" mat-flat-button (click)="selectTab(3)" [class.is-active]="selectedTab === 3">
-            My images
-        </button>
-    </div>
-    <div class="content">
-        <div class="first-content" *ngIf="selectedTab === 1">
-            <div class="profile-wrapper">
-                <div class="image-wrapper">
-                    <img src="http://placekitten.com/500/500"/>
+<ng-container *ngIf="currentUser$ | async as currentUser">
+    <mat-card class="wrapper">
+        <div class="tabs">
+            <button class="tab" mat-flat-button (click)="selectTab(1)" [class.is-active]="selectedTab === 1">
+                Personal information
+            </button>
+            <button class="tab" mat-flat-button (click)="selectTab(2)" [class.is-active]="selectedTab === 2">
+                Personal files    
+            </button>
+            <button class="tab" mat-flat-button (click)="selectTab(3)" [class.is-active]="selectedTab === 3">
+                My images
+            </button>
+        </div>
+        <div class="content">
+            <div class="first-content" *ngIf="selectedTab === 1">
+                <div class="profile-wrapper">
+                    <div class="image-wrapper">
+                        <img [src]="avatar"/>
+                        <input name="imageUrl" type="file" accept="image/*" (change)="imageUpload($event)" />
+                    </div>
+                    <span class="name">Teszt Profil</span>
                 </div>
-                <span class="name">Teszt Profil</span>
+                <div class="mt-5 data-wrapper">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Email address</mat-label>
+                        <input matInput [formControl]="emailControl"/>
+                    </mat-form-field>
+    
+                    <mat-form-field appearance="outline">
+                        <mat-label>Username</mat-label>
+                        <input matInput [formControl]="usernameControl"/>
+                    </mat-form-field>
+                    
+                    <button mat-flat-button color="primary" (click)="updateUserData(currentUser.id)" class="save-button">Save</button>
+                    <hr>
+                    <mat-form-field appearance="outline">
+                        <mat-label>Old password</mat-label>
+                        <input matInput />
+                    </mat-form-field>
+                    <mat-form-field appearance="outline">
+                        <mat-label>New password</mat-label>
+                        <input matInput />
+                    </mat-form-field>
+                    <mat-form-field appearance="outline">
+                        <mat-label>New password again</mat-label>
+                        <input matInput />
+                    </mat-form-field>
+                    <button mat-flat-button color="primary" class="save-button">Save password</button>
+                </div>
             </div>
-            <div class="mt-5 data-wrapper">
-                <mat-form-field appearance="outline">
-                    <mat-label>Felhasználónév</mat-label>
-                    <input matInput />
-                </mat-form-field>
-                <mat-form-field appearance="outline">
-                    <mat-label>Email cím</mat-label>
-                    <input matInput />
-                </mat-form-field>
-                <mat-form-field appearance="outline">
-                    <mat-label>Jelszó</mat-label>
-                    <input matInput />
-                </mat-form-field>
-                <mat-form-field appearance="outline">
-                    <mat-label>Teszt input</mat-label>
-                    <input matInput />
-                </mat-form-field>
+            <div class="second-content" *ngIf="selectedTab === 2">
+                <h2>My documents</h2>
+                <div class="document-gallery">
+                    <mat-card *ngFor="let document of documents$ | async" class="card" (click)="openDocument(document.id, $event)">
+                        <div [innerHTML]="document.content"></div>
+                        <span class="actions">
+                            <mat-icon color="primary" (click)="openDocument(document.id, $event)">visibility</mat-icon>
+                            <mat-icon color="primary" (click)="editDocument(document.id, $event)">edit</mat-icon>
+                        </span>
+                    </mat-card>
+                </div>
+            </div>
+            <div class="third-content" *ngIf="selectedTab === 3">
+                <h2>My images</h2>
+                <div class="image-gallery">
+                    <mat-card *ngFor="let image of images$ | async" class="card" (click)="openImage(image.id, $event)">
+                        <img mat-card-image [src]="image.imageData" alt="Image">
+                        <span class="actions">
+                            <mat-icon color="primary" (click)="openImage(image.id, $event)">visibility</mat-icon>
+                            <mat-icon color="primary" (click)="editImage(image.id, $event)">edit</mat-icon>
+                        </span>
+                    </mat-card>
+                </div>
             </div>
         </div>
-        <div class="second-content" *ngIf="selectedTab === 2">
-            <h2>My documents</h2>
-            <div class="document-gallery">
-                <mat-card *ngFor="let document of documents$ | async" class="card" (click)="openDocument(document.id, $event)">
-                    <div [innerHTML]="document.content"></div>
-                    <span class="actions">
-                        <mat-icon color="primary" (click)="openDocument(document.id, $event)">visibility</mat-icon>
-                        <mat-icon color="primary" (click)="editDocument(document.id, $event)">edit</mat-icon>
-                    </span>
-                </mat-card>
-            </div>
-        </div>
-        <div class="third-content" *ngIf="selectedTab === 3">
-            <h2>My images</h2>
-            <div class="image-gallery">
-                <mat-card *ngFor="let image of images$ | async" class="card" (click)="openImage(image.id, $event)">
-                    <img mat-card-image [src]="image.imageData" alt="Image">
-                    <span class="actions">
-                        <mat-icon color="primary" (click)="openImage(image.id, $event)">visibility</mat-icon>
-                        <mat-icon color="primary" (click)="editImage(image.id, $event)">edit</mat-icon>
-                    </span>
-                </mat-card>
-            </div>
-        </div>
-    </div>
-</mat-card>
+    </mat-card>
+</ng-container>

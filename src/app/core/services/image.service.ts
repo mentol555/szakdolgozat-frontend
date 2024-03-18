@@ -7,6 +7,12 @@ import { ImageResponse } from "../../shared/models/response/imageResponse";
 import { ImageSelectors } from "../../modules/editors/img-editor/store/selectors";
 import { Router } from "@angular/router";
 
+export interface UserData {
+    username: string,
+    email: string,
+    avatar: string
+}
+
 export enum CustomEditorMode {
     CREATE = 'CREATE',
     MODIFY = 'MODIFY'
@@ -32,7 +38,7 @@ export class ImageService {
     getImageById(id: number): Observable<ImageResponse> {
         return this.apiService.getImageById(id).pipe(
             map((image: ImageResponse) => {
-                const convertedImage = this.convertImage(image);
+                const convertedImage = this.convertImage(image.imageData);
                 return {
                     id: image.id,
                     creatorUserId: image.creatorUserId,
@@ -50,7 +56,7 @@ export class ImageService {
         return this.store.select(ImageSelectors.imageSelector.images).pipe(
             map((images: ImageResponse[]) => {
                 return images?.map(image => {
-                    const convertedImage = this.convertImage(image);
+                    const convertedImage = this.convertImage(image.imageData);
                     return {
                         id: image.id,
                         creatorUserId: image.creatorUserId,
@@ -61,17 +67,21 @@ export class ImageService {
         );
     }
 
-    convertImage(image: ImageResponse) {
-        const byteCharacters = atob(image.imageData);
+    convertImage(image: string) {
+        const blob = this.convertImageToBlob(image);
+        const data = URL.createObjectURL(blob);
+        return data;
+    }
+
+    convertImageToBlob(imageData: string) {
+        const byteCharacters = atob(imageData);
         const byteArray = new Uint8Array(byteCharacters.length);
         for (let i = 0; i < byteCharacters.length; i++) {
             byteArray[i] = byteCharacters.charCodeAt(i);
         }
 
         const blob = new Blob([byteArray], { type: 'image/png' });
-        const data = URL.createObjectURL(blob);
-
-        return data;
+        return blob;
     }
 
     openImage(imageId: number) {

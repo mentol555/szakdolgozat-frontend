@@ -6,12 +6,13 @@ import { Router } from "@angular/router";
 import { ApiService } from "../../core/services/api.service";
 import { AuthService } from "../../core/services/auth.service";
 import { AppActions } from "../actions/actionTypes";
+import { ToastrService } from "ngx-toastr";
 
 @Injectable()
 export class AppEffects {
 
   constructor(
-    private router: Router,
+    private toastrService: ToastrService,
     private apiService: ApiService,
     private actions$: Actions,
     private authService: AuthService
@@ -33,5 +34,21 @@ export class AppEffects {
                 return of(AppActions.loadLoggedInUserFailed());
             }
         })
+    ));
+
+    updateUserData$ = createEffect(() => this.actions$.pipe(
+        ofType(AppActions.updateUserData),
+        switchMap((action) => {
+            return this.apiService.updateUserData(action.id, action.userdata).pipe(
+                map(response => {
+                    localStorage.setItem('currentUser', JSON.stringify(response.user));
+                    localStorage.setItem('token', response.token);
+                    this.toastrService.success("User data modified!", "Success");
+                    return AppActions.updateUserDataSuccess({user: response.user});
+                })
+            )
+        })
     ))
+
+
 }
