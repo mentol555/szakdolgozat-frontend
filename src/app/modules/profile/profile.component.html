@@ -16,9 +16,13 @@
                 <div class="profile-wrapper">
                     <div class="image-wrapper">
                         <img [src]="avatar"/>
-                        <input name="imageUrl" type="file" accept="image/*" (change)="imageUpload($event)" />
+                        <!-- <input id="upload-image" name="imageUrl" type="file" accept="image/*" (change)="imageUpload($event)" /> -->
+                        <input style="display:none" id="upload-image" type="file" accept="image/*" (change)="imageUpload($event)">
+                        <button mat-icon-button type="button" class="upload-button" onclick="document.getElementById('upload-image').click()">
+                            <mat-icon>upload</mat-icon>
+                        </button>
                     </div>
-                    <span class="name">Teszt Profil</span>
+                    <span class="name">{{currentUser.uname}}</span>
                 </div>
                 <div class="mt-5 data-wrapper">
                     <mat-form-field appearance="outline">

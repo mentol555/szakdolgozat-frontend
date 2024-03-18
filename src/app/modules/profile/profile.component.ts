@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ImageService, UserData } from '../../core/services/image.service';
 import { AuthService } from '../../core/services/auth.service';
-import { Observable, tap } from 'rxjs';
+import { tap } from 'rxjs';
 import { DocumentService } from '../../core/services/document.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 
@@ -17,6 +17,7 @@ export interface UserForm {
 })
 export class ProfileComponent implements OnInit {
     currentUser$ = this.authService.getCurrentUser().pipe(tap(user => {
+        this.avatar = "data:image/jpeg;base64," + user.avatar;
         this.usernameControl.setValue(user.uname);
         this.emailControl.setValue(user.email);
     }));
@@ -97,18 +98,16 @@ export class ProfileComponent implements OnInit {
         }
     
         const reader = new FileReader();
-        const imageService = this.imageService;
     
         reader.onload = (event) => {
             this.base64avatar = event.target?.result as string;
             const blob = this.base64ToBlob(this.base64avatar.split(',')[1], file.type);
             this.avatar = URL.createObjectURL(blob);
-            // imageService.uploadImage(base64avatar);
         };
     
         reader.readAsDataURL(file);
     }
-    
+
     base64ToBlob(base64String: string, contentType: string): Blob {
         const byteCharacters = atob(base64String);
         const byteNumbers = new Array(byteCharacters.length);
