@@ -48,6 +48,19 @@ export class AppEffects {
                 })
             )
         })
+    ));
+
+    changePassword$ = createEffect(() => this.actions$.pipe(
+        ofType(AppActions.changePassword),
+        switchMap((action) => {
+            return this.apiService.changePassword(action.id, action.passwordChange).pipe(
+                map(response => {
+                    this.toastrService.success("Password changed! Log in using your new passord!", "Success");
+                    this.authService.logOut();
+                    return AppActions.changePasswordSuccess();
+                })
+            )
+        })
     ))
 
 

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ImageService, UserData } from '../../core/services/image.service';
+import { ImageService, PasswordChange, UserData } from '../../core/services/image.service';
 import { AuthService } from '../../core/services/auth.service';
 import { tap } from 'rxjs';
 import { DocumentService } from '../../core/services/document.service';
@@ -8,6 +8,12 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 export interface UserForm {
     usernameControl: FormControl<string>,
     emailControl: FormControl<string>
+}
+
+export interface PasswordForm {
+    oldpasswordControl: FormControl<string>,
+    newpasswordControl: FormControl<string>,
+    newpasswordagainControl: FormControl<string>
 }
 
 @Component({
@@ -35,9 +41,22 @@ export class ProfileComponent implements OnInit {
         emailControl: this.emailControl
     });
 
+    oldpasswordControl = new FormControl<string>('', {nonNullable: true, validators: [Validators.required]});
+    newpasswordControl = new FormControl<string>('', {nonNullable: true, validators: [Validators.required]});
+    newpasswordagainControl = new FormControl<string>('', {nonNullable: true, validators: [Validators.required]});
+
+    passwordForm = new FormGroup<PasswordForm>({
+        oldpasswordControl: this.oldpasswordControl,
+        newpasswordControl: this.newpasswordControl,
+        newpasswordagainControl: this.newpasswordagainControl
+    });
 
     avatar: string;
     base64avatar: string;
+
+    hideOld = true;
+    hideNew = true;
+    hideNewAgain = true;
 
     constructor(
         private imageService: ImageService, 
@@ -88,6 +107,23 @@ export class ProfileComponent implements OnInit {
             avatar: this.base64avatar
         }
         this.authService.updateUserData(id, userdata);
+    }
+
+    changePassword(id: number) {
+        if(this.passwordForm.invalid) {
+            this.passwordForm.markAllAsTouched();
+            return;
+        }
+        if(this.newpasswordControl.value !== this.newpasswordagainControl.value) {
+            this.newpasswordagainControl.setErrors({'passwordMismatch': true});
+            return;
+        }
+        const passwordChange: PasswordChange = {
+            oldpassword: this.oldpasswordControl.value,
+            newpassword: this.newpasswordControl.value,
+            newpasswordagain: this.newpasswordagainControl.value
+        }
+        this.authService.changePassword(id, passwordChange);
     }
 
     imageUpload($event: any) {

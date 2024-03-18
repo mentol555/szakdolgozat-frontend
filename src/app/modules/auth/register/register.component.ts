@@ -23,6 +23,8 @@ export interface RegisterForm {
         password: new FormControl<string>('', { validators: [Validators.required], nonNullable: true })
     })
 
+    hide = true;
+
     register() {
         this.authService.register(this.registerForm);
     }

@@ -9,7 +9,8 @@
 
     <mat-form-field class="w-75 mx-auto">
         <mat-label>Password</mat-label>
-        <input [formControl]="loginForm.controls.password" matInput />
+        <input [formControl]="loginForm.controls.password" matInput [type]="hide ? 'password' : 'text'"/>
+        <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
     </mat-form-field>
 
     <mat-card-actions class="d-flex flex-column justify-content-center mb-3">

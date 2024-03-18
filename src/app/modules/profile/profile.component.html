@@ -39,17 +39,21 @@
                     <hr>
                     <mat-form-field appearance="outline">
                         <mat-label>Old password</mat-label>
-                        <input matInput />
+                        <input matInput [formControl]="oldpasswordControl" [type]="hideOld ? 'password' : 'text'"/>
+                        <mat-icon matSuffix (click)="hideOld = !hideOld">{{hideOld ? 'visibility_off' : 'visibility'}}</mat-icon>
                     </mat-form-field>
                     <mat-form-field appearance="outline">
                         <mat-label>New password</mat-label>
-                        <input matInput />
+                        <input matInput [formControl]="newpasswordControl" [type]="hideNew ? 'password' : 'text'"/>
+                        <mat-icon matSuffix (click)="hideNew = !hideNew">{{hideNew ? 'visibility_off' : 'visibility'}}</mat-icon>
                     </mat-form-field>
                     <mat-form-field appearance="outline">
                         <mat-label>New password again</mat-label>
-                        <input matInput />
+                        <input matInput [formControl]="newpasswordagainControl" [type]="hideNewAgain ? 'password' : 'text'"/>
+                        <mat-icon matSuffix (click)="hideNewAgain = !hideNewAgain">{{hideNewAgain ? 'visibility_off' : 'visibility'}}</mat-icon>
+                        <mat-error *ngIf="newpasswordagainControl.hasError('passwordMismatch')">Password mismatch!</mat-error>
                     </mat-form-field>
-                    <button mat-flat-button color="primary" class="save-button">Save password</button>
+                    <button mat-flat-button color="primary" class="save-button" (click)="changePassword(currentUser.id)">Save password</button>
                 </div>
             </div>
             <div class="second-content" *ngIf="selectedTab === 2">

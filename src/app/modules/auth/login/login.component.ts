@@ -19,6 +19,8 @@ export interface LoginForm {
         password: new FormControl<string>('', { validators: [Validators.required], nonNullable: true })
     })
 
+    hide = true;
+
     constructor(private authService: AuthService) {}
 
     login() {

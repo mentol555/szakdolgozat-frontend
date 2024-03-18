@@ -9,7 +9,7 @@ import { ImageResponse } from "../../shared/models/response/imageResponse";
 import { DocumentResponse } from "../../shared/models/response/documentResponse";
 import { CommentDto } from "../../shared/models/comment";
 import { CommentRequest } from "../../shared/models/request/commentRequest";
-import { UserData } from "./image.service";
+import { PasswordChange, UserData } from "./image.service";
 import { User } from "../../shared/models/user";
 import { UpdateUserResponse } from "../../shared/models/response/updateUserResponse";
 
@@ -32,6 +32,10 @@ export class ApiService {
 
     updateUserData(id: number, userdata: UserData) {
         return this.http.put<UpdateUserResponse>(environment.apiUrl + '/users/' + id, userdata);
+    }
+
+    changePassword(id: number, passwordChange: PasswordChange) {
+        return this.http.put<Response>(environment.apiUrl + '/users/change-password/' + id, passwordChange);
     }
 
     // IMAGE

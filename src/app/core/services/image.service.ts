@@ -13,6 +13,12 @@ export interface UserData {
     avatar: string
 }
 
+export interface PasswordChange {
+    oldpassword: string,
+    newpassword: string,
+    newpasswordagain: string
+}
+
 export enum CustomEditorMode {
     CREATE = 'CREATE',
     MODIFY = 'MODIFY'
