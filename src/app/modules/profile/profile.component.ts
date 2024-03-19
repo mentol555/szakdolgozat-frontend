@@ -4,6 +4,8 @@ import { AuthService } from '../../core/services/auth.service';
 import { tap } from 'rxjs';
 import { DocumentService } from '../../core/services/document.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+//@ts-ignore
+import * as html2pdf from 'html2pdf.js'
 
 export interface UserForm {
     usernameControl: FormControl<string>,
@@ -162,5 +164,16 @@ export class ProfileComponent implements OnInit {
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);
+    }
+
+    downloadDocument(content: any, $event: any) {
+        console.log($event);
+        $event.stopPropagation();
+        const options = {
+            filename: 'document.pdf',
+            margin: 5
+        };
+        // Generate PDF from the temporary container
+        html2pdf().set(options).from(content).save();
     }
 }

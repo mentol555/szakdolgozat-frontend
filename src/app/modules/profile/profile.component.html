@@ -1,3 +1,4 @@
+<script src="html2pdf.bundle.min.js"></script>
 <ng-container *ngIf="currentUser$ | async as currentUser">
     <mat-card class="wrapper">
         <div class="tabs">
@@ -60,10 +61,11 @@
                 <h2>My documents</h2>
                 <div class="document-gallery">
                     <mat-card *ngFor="let document of documents$ | async" class="card" (click)="openDocument(document.id, $event)">
-                        <div [innerHTML]="document.content"></div>
+                        <div #content [innerHTML]="document.content"></div>
                         <span class="actions">
                             <mat-icon color="primary" (click)="openDocument(document.id, $event)">visibility</mat-icon>
                             <mat-icon color="primary" (click)="editDocument(document.id, $event)">edit</mat-icon>
+                            <mat-icon color="primary" (click)="downloadDocument(content, $event)">download</mat-icon>
                         </span>
                     </mat-card>
                 </div>
