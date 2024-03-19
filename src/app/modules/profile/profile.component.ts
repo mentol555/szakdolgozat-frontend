@@ -153,4 +153,14 @@ export class ProfileComponent implements OnInit {
         const byteArray = new Uint8Array(byteNumbers);
         return new Blob([byteArray], { type: contentType });
     }
+
+    downloadImage(imageData: string, $event: any) {
+        $event.stopPropagation();
+        const link = document.createElement('a');
+        link.href = imageData;
+        link.download = 'image.png';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    }
 }

@@ -31,3 +31,6 @@ export interface LoginForm {
         this.authService.doLogout();
     }
   }
+
+  // TODO: Save image/document as guest, but with idk creator user id, and can share it with others, but the profile will be
+  // guest!
