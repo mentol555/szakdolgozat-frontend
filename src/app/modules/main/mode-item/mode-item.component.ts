@@ -3,7 +3,8 @@ import { Component, Input } from '@angular/core';
 export interface ModeItemContent {
     title: string,
     description: string,
-    href: string
+    href: string,
+    color: string
 }
 
 @Component({

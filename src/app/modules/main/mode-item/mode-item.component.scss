@@ -1,3 +1,4 @@
+
 .mode-item {
     width: 100%;
     text-align: center;
@@ -5,7 +6,11 @@
     -webkit-box-shadow: -2px 4px 7px -1px #000000; 
     box-shadow: 0px 4px 7px -1px #000000;
     border-radius: 5px 5px 3px 3px;
+    h2, h4 {
+        font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    }
     transition-duration: 0.5s;
+    //background-color: rgba(91, 81, 81, 0.286);
     cursor: pointer;
 }
 

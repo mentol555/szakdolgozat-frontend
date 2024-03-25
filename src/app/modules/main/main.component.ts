@@ -12,13 +12,15 @@ export class MainComponent implements OnInit {
   modeContents: ModeItemContent[] = [
     {
         title: 'Image Editor',
-        description: 'Image Editor description',
-        href: 'img-editor'
+        description: 'Here you can edit your images however you like',
+        href: 'img-editor',
+        color: 'rgb(122, 206, 234, 0.7)'
     },
     {
         title: 'Document Editor',
-        description: 'Document Editor description',
-        href: 'doc-editor'
+        description: 'By clicking here you can access the document editor',
+        href: 'doc-editor',
+        color: 'rgba(208, 208, 18, 0.84)'
     }
   ]
 

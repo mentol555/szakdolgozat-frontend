@@ -1,14 +1,31 @@
+@import url('https://fonts.cdnfonts.com/css/vandal-free-font');
+
 .main-wrapper {
     flex-direction: column;
     color: white;
 
     .title {
-        font-size: large;
+        font-size: 3em;
+        line-height: 1.2em;
         text-align: center;
+        font-family: 'VANDAL Free Font', sans-serif;
+        .image-text{
+            color: rgb(122, 206, 234);
+        }
+        .document-text {
+            color: rgba(208, 208, 18, 0.84);
+        }
+    }
+
+    .subtitle {
+        font-size: 1.5em;
+        text-align: center;
+        font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+
     }
 
     .spacer {
-        height: 100px;
+        height: 70px;
         width: 100%;
     }
 

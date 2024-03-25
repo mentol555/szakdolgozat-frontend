@@ -3,7 +3,11 @@
     flex-direction: row;
     flex-wrap: wrap;
     padding: 5em 1em;
+    height: 80vh;
     gap: 1em;
+    ::ng-deep .note-editable {
+        height: 40vh;
+    }
     .summernote-view {
         border-radius: 0.75em;
     }

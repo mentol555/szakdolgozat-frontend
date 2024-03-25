@@ -1,11 +1,13 @@
 <div class="main-wrapper p-5 d-flex">
     <div>
-        <h2 class="title">Image and Document editor</h2>
+        <h3 class="title"><span class="image-text">Image</span> and <span class="document-text">Document</span> editor</h3>
+        
+        <h4 class="subtitle mt-5">With this multieditor you can edit your favourite images or documents in just a few seconds.</h4>
     </div>
     <div class="spacer">
         
     </div>
-    <div class="mode-wrapper mt-5">
+    <div class="mode-wrapper">
 
         @for (modeContent of modeContents; track modeContent) {
             <span (click)="openMode(modeContent)">
