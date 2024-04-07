@@ -6,6 +6,8 @@ import { AuthService } from "./auth.service";
 import { ImageActions } from "../../modules/editors/img-editor/store/actions/actionTypes";
 import { ImageSelectors } from "../../modules/editors/img-editor/store/selectors";
 import { DocumentActions } from "../../modules/editors/doc-editor/store/actions/actionTypes";
+import { Observable } from "rxjs";
+import { CommentDto } from "../../shared/models/comment";
 
 export enum EntityType  {
     IMAGE = "IMAGE",
@@ -29,7 +31,7 @@ export class CommentService {
         this.store.dispatch(DocumentActions.loadCommentsByDocId({documentId}));
     }
 
-    getComments() {
+    getComments(): Observable<CommentDto[]> {
         return this.store.select(ImageSelectors.imageSelector.comments);
     }
 
@@ -41,7 +43,7 @@ export class CommentService {
         this.authService.getCurrentUser().subscribe(user => {
             const request: CommentRequest = {
                 content: trimmedContent,
-                commenterAvatar: '',
+                commenterAvatar: user.avatar,
                 commenterName: user.uname
             };
             

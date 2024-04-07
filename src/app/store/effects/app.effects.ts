@@ -1,5 +1,5 @@
 import { Actions, createEffect, ofType } from "@ngrx/effects";
-import { map, of, switchMap } from "rxjs";
+import { catchError, map, of, switchMap, throwError } from "rxjs";
 import { AuthActions } from "../../modules/auth/store/actions/actionTypes";
 import { Injectable } from "@angular/core";
 import { Router } from "@angular/router";
@@ -45,6 +45,10 @@ export class AppEffects {
                     localStorage.setItem('token', response.token);
                     this.toastrService.success("User data modified!", "Success");
                     return AppActions.updateUserDataSuccess({user: response.user});
+                }),
+                catchError((error) => {
+                    this.toastrService.error("Failed to modify user data!", "Error");
+                    throw(error);
                 })
             )
         })
@@ -58,6 +62,10 @@ export class AppEffects {
                     this.toastrService.success("Password changed! Log in using your new passord!", "Success");
                     this.authService.logOut();
                     return AppActions.changePasswordSuccess();
+                }),
+                catchError((error) => {
+                    this.toastrService.error("Failed to modify password!", "Error");
+                    throw(error);
                 })
             )
         })

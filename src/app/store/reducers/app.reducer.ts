@@ -17,5 +17,11 @@ export const appReducer = createReducer(
           ...state,
           currentUser: action.user
         }
+  }),
+  on(AppActions.updateUserDataSuccess, (state, action) => {
+    return {
+        ...state,
+        currentUser: action.user
+    }
   })
 );

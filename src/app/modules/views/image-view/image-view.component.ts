@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from "@angular/core";
 import { ImageService } from "../../../core/services/image.service";
 import { ApiService } from "../../../core/services/api.service";
-import { Observable, tap } from "rxjs";
+import { Observable, map, tap } from "rxjs";
 import { ImageResponse } from "../../../shared/models/response/imageResponse";
 import { CommentDto } from "../../../shared/models/comment";
 import { CommentService, EntityType } from "../../../core/services/comment.service";
@@ -17,7 +17,16 @@ export class ImageViewComponent implements OnInit {
 
     imageLoader$: Observable<ImageResponse>;
 
-    comments$: Observable<CommentDto[]> = this.commentService.getComments();
+    comments$: Observable<CommentDto[]> = this.commentService.getComments().pipe(
+        map((comments: CommentDto[]) => {
+          return comments.map(comment => {
+            return {
+              ...comment,
+              commenterAvatar: "data:image/jpeg;base64," + comment.commenterAvatar
+            };
+          });
+        })
+    );
 
     imageId: number;
     imageData: string;

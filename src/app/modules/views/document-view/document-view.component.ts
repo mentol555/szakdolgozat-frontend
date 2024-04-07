@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from "@angular/core";
-import { Observable, tap } from "rxjs";
+import { Observable, map, tap } from "rxjs";
 import { ApiService } from "../../../core/services/api.service";
 import { DomSanitizer, SafeHtml } from "@angular/platform-browser";
 import { DocumentService } from "../../../core/services/document.service";
@@ -21,7 +21,16 @@ export class DocumentViewComponent implements OnInit {
 
     documentContent: SafeHtml;
 
-    comments$: Observable<CommentDto[]> = this.commentService.getComments();
+    comments$: Observable<CommentDto[]> = this.commentService.getComments().pipe(
+        map((comments: CommentDto[]) => {
+          return comments.map(comment => {
+            return {
+              ...comment,
+              commenterAvatar: "data:image/jpeg;base64," + comment.commenterAvatar
+            };
+          });
+        })
+    );
 
     isLoggedIn$ = this.authService.getIsLoggedIn();
 
@@ -38,9 +47,8 @@ export class DocumentViewComponent implements OnInit {
         );
         this.commentService.loadCommentsByDocumentId(id);
     }
-  
+
     constructor(
-        private apiService: ApiService, 
         private documentService: DocumentService,
         private commentService: CommentService,
         private authService: AuthService

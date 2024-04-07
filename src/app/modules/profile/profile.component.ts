@@ -26,6 +26,7 @@ export interface PasswordForm {
 export class ProfileComponent implements OnInit {
     currentUser$ = this.authService.getCurrentUser().pipe(tap(user => {
         this.avatar = "data:image/jpeg;base64," + user.avatar;
+        this.base64avatar = this.avatar;
         this.usernameControl.setValue(user.uname);
         this.emailControl.setValue(user.email);
     }));
@@ -64,7 +65,7 @@ export class ProfileComponent implements OnInit {
         private imageService: ImageService, 
         private authService: AuthService,
         private documentService: DocumentService
-        ) {}
+    ) {}
 
     ngOnInit() {
         const userId = this.authService.getUserId();
@@ -156,9 +157,10 @@ export class ProfileComponent implements OnInit {
         return new Blob([byteArray], { type: contentType });
     }
 
-    downloadImage(imageData: string, $event: any) {
+    downloadImage(imageData: string, $event: Event) {
         $event.stopPropagation();
         const link = document.createElement('a');
+        console.log(imageData)
         link.href = imageData;
         link.download = 'image.png';
         document.body.appendChild(link);
@@ -166,14 +168,12 @@ export class ProfileComponent implements OnInit {
         document.body.removeChild(link);
     }
 
-    downloadDocument(content: any, $event: any) {
-        console.log($event);
+    downloadDocument(content: HTMLElement, $event: Event) {
         $event.stopPropagation();
         const options = {
             filename: 'document.pdf',
             margin: 5
         };
-        // Generate PDF from the temporary container
         html2pdf().set(options).from(content).save();
     }
 }
